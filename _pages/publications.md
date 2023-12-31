@@ -10,7 +10,7 @@ author_profile: true
 {% endif %}
 
 {% include base_path %}
-<span style="font-size:0.9em;text-align: justify">A full list of my publications can also be found on my <a href="{{author.googlescholar}}">Google Scholar</a> profile.</span>
+<span style="font-size:0.9em;text-align: justify">A full list of my publications can also be found on my <a href="https://scholar.google.com/citations?user=_2tM_-UAAAAJ&hl=en">Google Scholar</a> profile.</span>
 
 <span style="font-size:1em; color:gray;background-color: #F0F0F0;height: 4em; width: 57em; display:inline-block; vertical-align: middle; padding-top: 22px;padding-left: 8px;text-align: left"><b>Conference Papers</b></span><br/>
 
