@@ -34,6 +34,19 @@ const hasPublications = siteConfig.publications && siteConfig.publications.lengt
 
                       <div class="space-y-4">
 
+                        <div>
+                          <span
+                            class="inline-block text-xs font-bold tracking-widest uppercase mb-3 px-3 py-1 rounded-full"
+                            style={{ 
+                              backgroundColor: `${siteConfig.accentColor}15`,
+                              color: siteConfig.accentColor 
+                            }}
+                          >
+                            {publication.type}
+                          </span>
+                          
+                        </div>
+
                         <p
                           class={`text-base sm:text-lg text-gray-600 leading-relaxed"}`}
                         >

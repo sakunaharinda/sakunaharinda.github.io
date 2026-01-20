@@ -39,6 +39,7 @@ export const siteConfig = {
   publications: [
     {
       // name: "AI Dev Roundup Newsletter",
+      type: "Journal",
       description:
         "Jayasundara, S. H., Gamagedara Arachchilage, N. A., \& Russello, G. (2024). SoK: Access control policy generation from high-level natural language requirements. ACM Computing Surveys, 57(4), 1-37.",
       // link: "https://aidevroundup.com/?ref=devportfolio",
@@ -46,6 +47,7 @@ export const siteConfig = {
     },
     {
       // name: "AI Dev Roundup Newsletter",
+      type: "Conference",
       description:
         "Jayasundara, S. H., Arachchilage, N. A. G., \& Russello, G. (2024). \"AccessFormer\": Feedback-driven access control policy generation framework. In the Symposium on Usable Security and Privacy (USEC)."
       // link: "https://aidevroundup.com/?ref=devportfolio",
@@ -53,6 +55,7 @@ export const siteConfig = {
     },
     {
       // name: "AI Dev Roundup Newsletter",
+      type: "Journal",
       description:
         "Jayasundara, S. H., Gamagedara Arachchilage, N. A., \& Russello, G. (2026). AGentVLM: Access Control Policy Generation and Verification Framework with Language Models. Journal of Information Security and Applications.",
       // link: "https://aidevroundup.com/?ref=devportfolio",
@@ -60,6 +63,7 @@ export const siteConfig = {
     },
     {
       // name: "AI Dev Roundup Newsletter",
+      type: "Conference",
       description:
         "Abeywardena, K., Sumanthiran, S., Jayasundara, S. H., Karunasena, S., Rodrigo, R., \& Jayasekara, P. (2023, September). KORSAL: Key-Point Based Online Real-Time Spatio-Temporal Action Localization. In 2023 IEEE Canadian Conference on Electrical and Computer Engineering (CCECE) (pp. 279-284). IEEE.",
       // link: "https://aidevroundup.com/?ref=devportfolio",
@@ -67,15 +71,17 @@ export const siteConfig = {
     },
     {
       // name: "AI Dev Roundup Newsletter",
+      type: "In Submission",
       description:
-        "Jayasundara, S. H., Gamagedara Arachchilage, N. A., Biddle, R., \& Russello, G. (2026). CHAGent: Context-aware Human-centric Access Control Policy Generation. IEEE Symposium on Security and Privacy. (In Submission)",
+        "Jayasundara, S. H., Gamagedara Arachchilage, N. A., Biddle, R., \& Russello, G. (2026). CHAGent: Context-aware Human-centric Access Control Policy Generation. IEEE Symposium on Security and Privacy.",
       // link: "https://aidevroundup.com/?ref=devportfolio",
       // skills: ["React", "Node.js", "AWS"],
     },
     {
+      type: "In Submission",
       // name: "AI Dev Roundup Newsletter",
       description:
-        "ayasundara, S. H., Gamagedara Arachchilage, N. A., Biddle, R., \& Russello, G. (2026). \"This is going to change the game\": Design and Evaluation of a Usable and Accurate Automated Access Control Policy Generation System. ACM CHI conference on Human Factors in Computing Systems. (In Submission)",
+        "Jayasundara, S. H., Gamagedara Arachchilage, N. A., Biddle, R., \& Russello, G. (2026). \"This is going to change the game\": Design and Evaluation of a Usable and Accurate Automated Access Control Policy Generation System. ACM CHI conference on Human Factors in Computing Systems.",
       // link: "https://aidevroundup.com/?ref=devportfolio",
       // skills: ["React", "Node.js", "AWS"],
     },
