@@ -154,6 +154,37 @@ import { siteConfig } from "../config";
     class="absolute bottom-0 left-0 right-0 p-8 sm:p-12 md:p-24 flex gap-x-4 sm:gap-x-6 md:gap-x-8 text-gray-700 animate-fade-in animation-delay-600"
   >
     {
+      siteConfig.social?.cv && (
+        <a
+          href={`${siteConfig.social.cv}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="View CV"
+          class="transition-colors duration-300 hover:text-[var(--accent-color)]"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-file-cv"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2" /><path d="M11 12.5a1.5 1.5 0 0 0 -3 0v3a1.5 1.5 0 0 0 3 0" /><path d="M13 11l1.5 6l1.5 -6" /></svg>
+          {/* <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="h-6 w-6 sm:h-7 sm:w-7 md:h-8 md:w-8"
+          >
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+            <polyline points="14 2 14 8 20 8" />
+            <line x1="16" y1="13" x2="8" y2="13" />
+            <line x1="16" y1="17" x2="8" y2="17" />
+            <polyline points="10 9 9 9 8 9" />
+          </svg> */}
+        </a>
+      )
+    }
+    {
       siteConfig.social?.email && (
         <a
           href={`mailto:${siteConfig.social.email}`}
@@ -207,36 +238,6 @@ import { siteConfig } from "../config";
               <path d="M12 16v-5" />
               <path d="M16 16v-3a2 2 0 1 0 -4 0" />
               <path d="M3 7a4 4 0 0 1 4 -4h10a4 4 0 0 1 4 4v10a4 4 0 0 1 -4 4h-10a4 4 0 0 1 -4 -4z" />
-            </>
-          </svg>
-        </a>
-      )
-    }
-    {
-      siteConfig.social?.twitter && (
-        <a
-          href={siteConfig.social.twitter}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="Twitter"
-          class="transition-colors duration-300 hover:text-[var(--accent-color)]"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            class="h-6 w-6 sm:h-7 sm:w-7 md:h-8 md:w-8"
-          >
-            <>
-              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-              <path d="M4 4l11.733 16h4.267l-11.733 -16z" />
-              <path d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772" />
             </>
           </svg>
         </a>
