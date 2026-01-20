@@ -6,7 +6,7 @@ export const siteConfig = {
   social: {
     cv: "/cv.pdf",
     email: "sakunaj1996@gmail.com",
-    linkedin: "https://linkedin.com/in/yourprofile",
+    linkedin: "https://www.linkedin.com/in/sakuna-harinda/",
     // twitter: "https://x.com/rfitzio",
     github: "https://github.com/sakunaharinda",
   },
