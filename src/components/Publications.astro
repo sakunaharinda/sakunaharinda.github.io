@@ -21,30 +21,21 @@ const hasPublications = siteConfig.publications && siteConfig.publications.lengt
           <div class="lg:col-span-8">
             <div class="space-y-8">
               {siteConfig.publications.map((publication, index) => {
-                const Component = publication.link ? "a" : "div";
-                const linkProps = publication.link
-                  ? {
-                      href: publication.link,
-                      target: "_blank",
-                      rel: "noopener noreferrer",
-                    }
-                  : {};
+                const Component = "div";
+                const linkProps = {};
 
                 return (
                   <div class="group relative">
                     <Component
                       // {...linkProps}
-                      class={`block relative p-4 sm:p-6 md:p-8 bg-gray-50 rounded-xl sm:rounded-2xl border border-gray-200 transition-all duration-300 ${
-                        publication.link
-                          ? "hover:bg-white hover:shadow-xl hover:border-gray-300 hover:-translate-y-1"
-                          : ""
+                      class={`block relative p-4 sm:p-6 md:p-8 bg-gray-50 rounded-xl sm:rounded-2xl border border-gray-200 transition-all duration-300"
                       }`}
                     >
 
                       <div class="space-y-4">
 
                         <p
-                          class={`text-base sm:text-lg text-gray-600 leading-relaxed ${publication.link ? "pr-12 sm:pr-14 md:pr-16" : ""}`}
+                          class={`text-base sm:text-lg text-gray-600 leading-relaxed"}`}
                         >
                           {publication.description}
                         </p>
