@@ -89,13 +89,13 @@ export const siteConfig = {
   experience: [
     {
       company: "H2O.ai",
-      title: "Software Engineer",
+      title: "Software Engineer (SDET)",
       dateRange: "June 2022 - October 2022",
       bullets: [
         "Built and maintained scalable Wave applications to support internal and external ML workflows, enhancing reliability and developer productivity through automation.",
         "Designed and implemented robust end-to-end test automation pipelines using Python, Jenkins, and Groovy, reducing manual testing effort and increasing release velocity.",
-        "Led the architecture and development of a best-in-class test automation framework, including guiding implementation, defining coding standards, and shaping the automation roadmap for cross-team use.",
-        "Mentored peers and collaborated with QA and engineering teams to integrate automation into CI/CD workflows, improving code quality and shortening time-to-deployment for key features."
+        //"Led the architecture and development of a best-in-class test automation framework, including guiding implementation, defining coding standards, and shaping the automation roadmap for cross-team use.",
+        "Collaborated with engineering teams to integrate automation into CI/CD workflows, improving code quality and shortening time-to-deployment for key features."
       ],
     },
     {
