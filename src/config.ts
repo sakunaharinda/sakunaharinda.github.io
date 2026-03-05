@@ -94,7 +94,7 @@ export const siteConfig = {
       bullets: [
         "Built and maintained scalable Wave applications to support internal and external ML workflows, enhancing reliability and developer productivity through automation.",
         "Designed and implemented robust end-to-end test automation pipelines using Python, Jenkins, and Groovy, reducing manual testing effort and increasing release velocity.",
-        //"Led the architecture and development of a best-in-class test automation framework, including guiding implementation, defining coding standards, and shaping the automation roadmap for cross-team use.",
+        "Led the architecture and development of a best-in-class test automation framework, including guiding implementation, defining coding standards, and shaping the automation roadmap for cross-team use.",
         "Collaborated with engineering teams to integrate automation into CI/CD workflows, improving code quality and shortening time-to-deployment for key features."
       ],
     },
