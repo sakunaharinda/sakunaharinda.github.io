@@ -89,7 +89,7 @@ export const siteConfig = {
   experience: [
     {
       company: "H2O.ai",
-      title: "Software Engineer (SDET)",
+      title: "Software Engineer",
       dateRange: "June 2022 - October 2022",
       bullets: [
         "Built and maintained scalable Wave applications to support internal and external ML workflows, enhancing reliability and developer productivity through automation.",
