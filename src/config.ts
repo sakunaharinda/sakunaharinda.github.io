@@ -11,7 +11,7 @@ export const siteConfig = {
     github: "https://github.com/sakunaharinda",
   },
   aboutMe:
-    "Software Engineer and Researcher with 1.5+ years of industry experience building scalable, production-grade systems across backend development, machine learning, and automation. Brings 8+ years of experience in Python and Java, along with extensive work across modern ML frameworks, containerization, orchestration, CI/CD pipelines, and end-to-end testing frameworks. Ph.D. from the University of Auckland, with research spanning deep learning, natural language processing, and cybersecurity. Demonstrated ability to design reliable systems, write high-quality, maintainable code, and apply data-driven and research-informed approaches to solve complex engineering problems.",
+    "Ph.D.-qualified software Engineer and Researcher with 5+ years of industry and research experience building scalable, production-grade systems across backend development, machine learning, and automation. Brings 8+ years of experience in Python and Java, along with extensive work across modern ML frameworks, containerization, orchestration, CI/CD pipelines, and end-to-end test automation. Ph.D. from the University of Auckland, with research spanning deep learning, natural language processing, cybersecurity, and HCI. Focused on applying data-driven and research-informed approaches to solve real-world engineering problems.",
   skills: ["Pytorch", "Tensorflow", "Keras", "Python", "Java", "C/C++", "Springboot", "Docker", "Kubernetes"],
   projects: [
     {
