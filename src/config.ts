@@ -18,7 +18,7 @@ export const siteConfig = {
       name: "Ragatouille",
       description:
         "The Ultimate Guide to Mastering Retrieval-Augmented Generation (RAG) with LangChain. Featured in LangChain LinkedIn page!.",
-      link: "https://github.com/sakunaharinda/ragatouille-book/tree/main",
+      link: "https://sakunah.com/ragatouille-book/intro.html",
       skills: ["NLP", "Python", "Langchain", "Neo4J"],
     },
     // {
