@@ -100,7 +100,7 @@ export const siteConfig = {
     },
     {
       company: "Axiata Digital Labs",
-      title: "DevOps Engineer",
+      title: "Software Engineer",
       dateRange: "July 2021 - June 2022",
       bullets: [
         "Designed, developed, and maintained backend RESTful and SOAP APIs using Java and Spring Boot to support customer-facing services for clients associated with Celcom Malaysia, ensuring high reliability and seamless integration with existing telecommunications systems.",
