@@ -21,6 +21,13 @@ export const siteConfig = {
       link: "https://sakunah.com/ragatouille-book",
       skills: ["NLP", "Python", "Langchain", "Neo4J"],
     },
+    {
+      name: "AgenticSLR (Under development)",
+      description:
+        "AgenticSLR is a web-based, agentic systematic literature review platform that uses LangGraph/LangChain. This is being developed to reduce the manual burden of doing systematic literature reviews, a problem every Ph.D. student face during their first year!",
+      // link: "https://sakunah.com/ragatouille-book",
+      skills: ["Langgraph", "Langchain", "FastAPI", "React", "Tailwind CSS", "Typescript"],
+    },
     // {
     //   name: "Chrome Extension Mastery: Build Full-Stack Extensions with React & Node.js",
     //   description:
