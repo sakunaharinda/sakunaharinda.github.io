@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Inter+Tight:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: 86px; background: #070b14; }
+  body { margin: 0; background: #070b14; transition: background .4s ease; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+  ::selection { background: rgba(34,211,238,.3); color: #fff; }
+  ul { margin: 0; padding: 0; list-style: none; }
+  a { text-decoration: none; }
+  button { font-family: inherit; }
+  @keyframes blink { 0%,49%{opacity:1} 50%,100%{opacity:0} }
+  @keyframes riseIn { from { opacity:0; transform:translateY(22px); } to { opacity:1; transform:none; } }
+  @keyframes sheen { from { background-position:0% center; } to { background-position:200% center; } }
+  ::-webkit-scrollbar { width: 10px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: #475569; border-radius: 10px; opacity:.5; }
+  :root, [data-theme="dark"] {
+    --bg:#070b14; --surface:rgba(255,255,255,.02); --border:rgba(255,255,255,.08);
+    --border-soft:rgba(255,255,255,.07); --border-faint:rgba(255,255,255,.06);
+    --heading:#f1f5f9; --text:#e2e8f0; --body:#94a3b8; --muted:#64748b; --dim:#475569;
+    --nav-bg:rgba(7,11,20,.72); --chip-bg:rgba(255,255,255,.04); --chip-text:#cbd5e1;
+    --accent:#22d3ee; --accent2:#3b82f6; --accent-soft:#67e8f9; --accent-text:#22d3ee;
+    --name-grad:linear-gradient(115deg,#ffffff 35%,#a5f3fc 70%,#60a5fa);
+    --hero-glow1:rgba(34,211,238,.18); --hero-glow2:rgba(59,130,246,.16); --grid-line:rgba(255,255,255,.022);
+  }
+  [data-theme="light"] {
+    --bg:#eef2f8; --surface:rgba(15,23,42,.025); --border:rgba(15,23,42,.1);
+    --border-soft:rgba(15,23,42,.08); --border-faint:rgba(15,23,42,.07);
+    --heading:#0f172a; --text:#1e293b; --body:#475569; --muted:#64748b; --dim:#94a3b8;
+    --nav-bg:rgba(238,242,248,.8); --chip-bg:rgba(15,23,42,.04); --chip-text:#334155;
+    --accent:#0891b2; --accent2:#2563eb; --accent-soft:#0e7490; --accent-text:#0891b2;
+    --name-grad:linear-gradient(115deg,#0f172a 30%,#0891b2 68%,#2563eb);
+    --hero-glow1:rgba(8,145,178,.15); --hero-glow2:rgba(37,99,235,.13); --grid-line:rgba(15,23,42,.04);
+  }
+  @media (max-width: 900px) {
+    nav [data-nav] { display:none !important; }
+    [data-hero-grid] { grid-template-columns:1fr !important; gap:44px !important; }
+    [data-about-grid] { grid-template-columns:1fr !important; gap:34px !important; }
+    [data-skills-grid] { grid-template-columns:1fr !important; }
+    [data-projects-grid] { grid-template-columns:1fr 1fr !important; }
+    [data-honours-grid] { grid-template-columns:1fr 1fr !important; }
+    [data-hero-name] { font-size:48px !important; }
+  }
+  @media (max-width: 600px) {
+    section { padding-left:20px !important; padding-right:20px !important; padding-top:58px !important; padding-bottom:58px !important; }
+    [data-hero] { padding-top:108px !important; padding-bottom:56px !important; }
+    nav > div { padding-left:18px !important; padding-right:18px !important; }
+    [data-hero-name] { font-size:36px !important; line-height:1.05 !important; }
+    h2 { font-size:26px !important; }
+    [data-projects-grid] { grid-template-columns:1fr !important; }
+    [data-honours-grid] { grid-template-columns:1fr !important; }
+    [data-stats] > div { min-width:0 !important; flex:1 1 42% !important; padding:18px !important; }
+    [data-stats] > div > div:first-child { font-size:30px !important; }
+    #publications > div:last-child > div { flex-direction:column !important; gap:8px !important; }
+    [data-contact-panel] { padding:44px 22px !important; }
+    [data-contact-panel] h2 { font-size:30px !important; }
+  }
+</style>
+</helmet>
+
+<div ref="{{ setRoot }}" data-theme="dark" style="background-color:var(--bg); background-image:linear-gradient(var(--grid-line) 1px, transparent 1px), linear-gradient(90deg, var(--grid-line) 1px, transparent 1px); background-size:72px 72px; color:var(--text); font-family:'Inter Tight',sans-serif; min-height:100vh; overflow-x:hidden; position:relative; isolation:isolate; transition:background .4s ease;">
+
+  <div data-progress="true" style="position:fixed; top:0; left:0; height:2px; width:0%; background:linear-gradient(90deg,#22d3ee,#3b82f6); z-index:60; transition:width .12s linear; box-shadow:0 0 10px rgba(34,211,238,.5);"></div>
+  <div data-glow="true" style="position:fixed; top:0; left:0; width:480px; height:480px; border-radius:50%; background:radial-gradient(circle, var(--hero-glow1), transparent 65%); filter:blur(44px); pointer-events:none; transform:translate(200px,120px); transition:transform .2s ease-out; z-index:-1; will-change:transform;"></div>
+
+  <!-- ============================ NAV ============================ -->
+  <nav style="position:fixed; top:0; left:0; right:0; z-index:50; backdrop-filter:blur(14px); background:var(--nav-bg); border-bottom:1px solid var(--border-faint); transition:background .4s ease;">
+    <div style="max-width:1080px; margin:0 auto; padding:0 32px; height:64px; display:flex; align-items:center; justify-content:space-between;">
+      <a href="#top" style="display:flex; align-items:center; gap:10px;">
+        <span style="width:30px; height:30px; border-radius:8px; background:linear-gradient(135deg,#22d3ee,#3b82f6); display:flex; align-items:center; justify-content:center; font-family:'Space Grotesk',sans-serif; font-weight:700; color:#070b14; font-size:15px;">S</span>
+        <span style="font-family:'JetBrains Mono',monospace; font-size:14px; color:var(--text); font-weight:500;">sakuna.dev</span>
+      </a>
+      <div style="display:flex; align-items:center; gap:24px;">
+        <a data-nav="about" href="#about" style="font-size:13.5px; color:var(--body); transition:color .25s;">About</a>
+        <a data-nav="experience" href="#experience" style="font-size:13.5px; color:var(--body); transition:color .25s;">Experience</a>
+        <a data-nav="education" href="#education" style="font-size:13.5px; color:var(--body); transition:color .25s;">Education</a>
+        <a data-nav="publications" href="#publications" style="font-size:13.5px; color:var(--body); transition:color .25s;">Research</a>
+        <a data-nav="projects" href="#projects" style="font-size:13.5px; color:var(--body); transition:color .25s;">Projects</a>
+        <a data-nav="skills" href="#skills" style="font-size:13.5px; color:var(--body); transition:color .25s;">Skills</a>
+        <button onClick="{{ toggleTheme }}" aria-label="Toggle light / dark theme" style="display:flex; align-items:center; justify-content:center; width:38px; height:38px; border-radius:8px; background:var(--surface); border:1px solid var(--border); color:var(--accent-text); cursor:pointer; transition:all .25s; padding:0;" style-hover="border-color:var(--accent-text);">
+          <span data-icon-moon="true" style="display:flex;"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></span>
+          <span data-icon-sun="true" style="display:none;"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="4"/><line x1="12" y1="20" x2="12" y2="22"/><line x1="4.2" y1="4.2" x2="5.6" y2="5.6"/><line x1="18.4" y1="18.4" x2="19.8" y2="19.8"/><line x1="2" y1="12" x2="4" y2="12"/><line x1="20" y1="12" x2="22" y2="12"/><line x1="4.2" y1="19.8" x2="5.6" y2="18.4"/><line x1="18.4" y1="5.6" x2="19.8" y2="4.2"/></svg></span>
+        </button>
+        <a href="public/cv.pdf" target="_blank" style="font-family:'JetBrains Mono',monospace; font-size:13px; color:var(--accent-text); border:1px solid var(--accent-text); padding:8px 16px; border-radius:7px; transition:all .25s;" style-hover="background:rgba(34,211,238,.1);">Resume ↗</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ============================ HERO ============================ -->
+  <section id="top" data-hero="true" style="position:relative; max-width:1080px; margin:0 auto; padding:150px 32px 90px; overflow:hidden;">
+    <div style="position:absolute; top:-80px; right:-60px; width:340px; height:340px; border-radius:50%; background:radial-gradient(circle, var(--hero-glow2), transparent 65%); filter:blur(30px); pointer-events:none; z-index:0;"></div>
+
+    <div data-hero-grid="true" style="position:relative; z-index:1; display:grid; grid-template-columns:1.15fr .85fr; gap:56px; align-items:center;">
+      <!-- left -->
+      <div>
+        <div style="display:inline-flex; align-items:center; gap:8px; font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--accent-text); border:1px solid var(--accent-text); padding:6px 14px; border-radius:100px; margin-bottom:26px; animation:riseIn .7s cubic-bezier(.16,1,.3,1) both; animation-delay:.05s;">
+          <span style="width:7px; height:7px; border-radius:50%; background:var(--accent); box-shadow:0 0 8px var(--accent);"></span>
+          Open to Software Engineer · ML / AI roles
+        </div>
+        <h1 data-hero-name="true" style="font-family:'Space Grotesk',sans-serif; font-size:62px; line-height:0.98; font-weight:700; margin:0 0 18px; letter-spacing:-0.02em; background:var(--name-grad); background-size:200% auto; -webkit-background-clip:text; background-clip:text; color:transparent; animation:riseIn .8s cubic-bezier(.16,1,.3,1) both, sheen 9s ease-in-out 1.2s infinite alternate;">Sakuna Harinda<br>Jayasundara</h1>
+        <div style="font-family:'JetBrains Mono',monospace; font-size:19px; color:var(--accent-text); margin-bottom:24px; min-height:26px; animation:riseIn .7s cubic-bezier(.16,1,.3,1) both; animation-delay:.26s;">
+          <span style="color:var(--dim);">&gt;</span> <span data-typewriter="true"></span><span style="display:inline-block; width:9px; height:18px; background:var(--accent); margin-left:2px; vertical-align:-3px; animation:blink 1.1s step-end infinite;"></span>
+        </div>
+        <p style="font-size:16.5px; line-height:1.7; color:var(--body); margin:0 0 32px; max-width:480px; animation:riseIn .7s cubic-bezier(.16,1,.3,1) both; animation-delay:.4s;">I build scalable, production-grade systems across <span style="color:var(--text);">backend</span>, <span style="color:var(--text);">machine learning</span>, and <span style="color:var(--text);">automation</span> — 5+ years of industry and research experience, and a Ph.D. from the University of Auckland with research spanning deep learning, natural language processing, cybersecurity, agentic security, &amp; HCI.</p>
+        <div style="display:flex; align-items:center; gap:12px; flex-wrap:wrap; animation:riseIn .7s cubic-bezier(.16,1,.3,1) both; animation-delay:.52s;">
+          <a href="mailto:sakunaj1996@gmail.com" style="display:inline-flex; align-items:center; gap:9px; font-size:15px; color:#070b14; background:linear-gradient(135deg,#22d3ee,#3b82f6); padding:13px 22px; border-radius:10px; font-weight:600; transition:transform .2s, box-shadow .2s;" style-hover="transform:translateY(-2px); box-shadow:0 12px 30px -10px rgba(34,211,238,.5);"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="4.5" width="19" height="15" rx="2.5"/><path d="M3.2 6.5l8.8 6 8.8-6"/></svg>Get in touch</a>
+          <a href="https://www.linkedin.com/in/sakuna-harinda/" target="_blank" aria-label="LinkedIn" style="display:flex; align-items:center; justify-content:center; width:48px; height:48px; border:1px solid var(--border); border-radius:10px; color:var(--body); transition:all .2s;" style-hover="border-color:var(--accent-text); color:var(--accent-text); transform:translateY(-2px);"><svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM9 9h3.8v1.7h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1V21h-4v-5.4c0-1.29-.02-2.95-1.8-2.95-1.8 0-2.08 1.4-2.08 2.85V21H9z"/></svg></a>
+          <a href="https://github.com/sakunaharinda" target="_blank" aria-label="GitHub" style="display:flex; align-items:center; justify-content:center; width:48px; height:48px; border:1px solid var(--border); border-radius:10px; color:var(--body); transition:all .2s;" style-hover="border-color:var(--accent-text); color:var(--accent-text); transform:translateY(-2px);"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.58 2 12.26c0 4.5 2.87 8.32 6.84 9.67.5.09.68-.22.68-.49 0-.24-.01-.87-.01-1.71-2.78.62-3.37-1.37-3.37-1.37-.45-1.18-1.11-1.49-1.11-1.49-.91-.64.07-.62.07-.62 1 .07 1.53 1.06 1.53 1.06.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.37-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.71 0 0 .84-.27 2.75 1.05a9.36 9.36 0 0 1 5 0c1.91-1.32 2.75-1.05 2.75-1.05.55 1.41.2 2.45.1 2.71.64.72 1.03 1.63 1.03 2.75 0 3.94-2.34 4.81-4.57 5.06.36.32.68.94.68 1.9 0 1.37-.01 2.47-.01 2.81 0 .27.18.59.69.49A10.02 10.02 0 0 0 22 12.26C22 6.58 17.52 2 12 2z"/></svg></a>
+          <a href="https://scholar.google.com/" target="_blank" aria-label="Google Scholar" style="display:flex; align-items:center; justify-content:center; width:48px; height:48px; border:1px solid var(--border); border-radius:10px; color:var(--body); transition:all .2s;" style-hover="border-color:var(--accent-text); color:var(--accent-text); transform:translateY(-2px);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4 1.5 9 12 14l10.5-5z"/><path d="M6 11.2V16c0 1.4 2.7 2.8 6 2.8s6-1.4 6-2.8v-4.8"/><path d="M22.5 9v5.6"/></svg></a>
+        </div>
+      </div>
+
+      <!-- right: terminal card (intentionally dark in both themes) -->
+      <div style="background:#0d1321; border:1px solid rgba(255,255,255,.08); border-radius:12px; box-shadow:0 30px 60px -25px rgba(0,0,0,.7); overflow:hidden; animation:riseIn .8s cubic-bezier(.16,1,.3,1) both; animation-delay:.42s;">
+        <div style="display:flex; align-items:center; gap:8px; padding:13px 16px; border-bottom:1px solid rgba(255,255,255,.06);">
+          <span style="width:11px; height:11px; border-radius:50%; background:#ef4444; opacity:.8;"></span>
+          <span style="width:11px; height:11px; border-radius:50%; background:#f59e0b; opacity:.8;"></span>
+          <span style="width:11px; height:11px; border-radius:50%; background:#22c55e; opacity:.8;"></span>
+          <span style="margin-left:8px; font-family:'JetBrains Mono',monospace; font-size:12px; color:#64748b;">~/sakuna — zsh</span>
+        </div>
+        <div style="padding:22px 20px; font-family:'JetBrains Mono',monospace; font-size:13px; line-height:1.9;">
+          <div style="color:#475569;">$ <span style="color:#cbd5e1;">whoami</span></div>
+          <div style="color:#22d3ee; margin-bottom:10px;">→ Engineer · Researcher · Builder</div>
+          <div style="color:#475569;">$ <span style="color:#cbd5e1;">cat focus.txt</span></div>
+          <div style="color:#a5f3fc; margin-bottom:10px;">→ Agentic AI · Backend · MLOps · NLP</div>
+          <div style="color:#475569;">$ <span style="color:#cbd5e1;">ls stack/</span></div>
+          <div style="color:#7dd3fc; margin-bottom:10px;">PyTorch  LangGraph  Spring&nbsp;Boot<br>FastAPI  Kubernetes  AWS  Neo4J</div>
+          <div style="color:#475569;">$ <span style="display:inline-block; width:8px; height:14px; background:#22d3ee; vertical-align:-2px; animation:blink 1.1s step-end infinite;"></span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- stats -->
+    <div data-reveal="true" data-stats="true" style="position:relative; z-index:1; display:flex; gap:14px; margin-top:64px; flex-wrap:wrap;">
+      <div style="flex:1; min-width:150px; background:var(--surface); border:1px solid var(--border-soft); border-radius:10px; padding:22px 24px;">
+        <div style="font-family:'Space Grotesk',sans-serif; font-size:38px; font-weight:700; color:var(--accent-text);" data-count="5" data-suffix="+">0</div>
+        <div style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.06em; color:var(--muted); text-transform:uppercase; margin-top:4px;">Years experience</div>
+      </div>
+      <div style="flex:1; min-width:150px; background:var(--surface); border:1px solid var(--border-soft); border-radius:10px; padding:22px 24px;">
+        <div style="font-family:'Space Grotesk',sans-serif; font-size:38px; font-weight:700; color:var(--accent-text);" data-count="8" data-suffix="+">0</div>
+        <div style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.06em; color:var(--muted); text-transform:uppercase; margin-top:4px;">Years Python / Java</div>
+      </div>
+      <div style="flex:1; min-width:150px; background:var(--surface); border:1px solid var(--border-soft); border-radius:10px; padding:22px 24px;">
+        <div style="font-family:'Space Grotesk',sans-serif; font-size:38px; font-weight:700; color:var(--accent-text);" data-count="6" data-suffix="">0</div>
+        <div style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.06em; color:var(--muted); text-transform:uppercase; margin-top:4px;">Publications</div>
+      </div>
+      <div style="flex:1; min-width:150px; background:var(--surface); border:1px solid var(--border-soft); border-radius:10px; padding:22px 24px;">
+        <div style="font-family:'Space Grotesk',sans-serif; font-size:38px; font-weight:700; color:var(--accent-text);" data-count="20" data-suffix="+">0</div>
+        <div style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.06em; color:var(--muted); text-transform:uppercase; margin-top:4px;">Tools &amp; frameworks shipped</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ ABOUT ============================ -->
+  <section id="about" style="max-width:1080px; margin:0 auto; padding:80px 32px;">
+    <div data-reveal="true" style="display:flex; align-items:center; gap:18px; font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:.2em; text-transform:uppercase; color:var(--accent-text); margin-bottom:18px;"><span style="white-space:nowrap;"><span style="color:var(--dim);">01 /</span> About</span><span style="flex:1; height:1px; background:linear-gradient(90deg,var(--border),transparent);"></span></div>
+    <div data-about-grid="true" style="display:grid; grid-template-columns:1.5fr 1fr; gap:56px; align-items:start;">
+      <div data-reveal="true">
+        <h2 style="font-family:'Space Grotesk',sans-serif; font-size:30px; font-weight:600; color:var(--heading); margin:0 0 20px; line-height:1.25; letter-spacing:-0.01em;">Engineer and researcher who turns research-grade ideas into production systems.</h2>
+        <p style="font-size:16px; line-height:1.75; color:var(--body); margin:0 0 16px;">I have 5+ years of combined industry and research experience building scalable, production-grade systems across backend development, machine learning, and automation. My toolbox spans 8+ years of Python, Java, C/C++, TypeScript, and C#, plus deep work in agentic AI, agentic security, modern ML/MLOps frameworks, CI/CD pipelines, and end-to-end test automation.</p>
+        <p style="font-size:16px; line-height:1.75; color:var(--body); margin:0;">My Ph.D. at the University of Auckland spans deep learning, natural language processing, cybersecurity, agentic security, and HCI. I'm driven by applying data-driven, research-informed approaches to real-world engineering problems.</p>
+      </div>
+      <div data-reveal="true" data-delay="120">
+        <div style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); margin-bottom:14px;">Focus areas</div>
+        <div style="display:flex; flex-direction:column; gap:10px;">
+          <div style="display:flex; align-items:center; gap:12px; background:var(--surface); border:1px solid var(--border-soft); border-radius:9px; padding:14px 16px;"><span style="color:var(--accent-text); font-family:'JetBrains Mono',monospace;">›</span><span style="font-size:14.5px; color:var(--text);">Agentic AI &amp; LLM systems</span></div>
+          <div style="display:flex; align-items:center; gap:12px; background:var(--surface); border:1px solid var(--border-soft); border-radius:9px; padding:14px 16px;"><span style="color:var(--accent-text); font-family:'JetBrains Mono',monospace;">›</span><span style="font-size:14.5px; color:var(--text);">Backend &amp; distributed services</span></div>
+          <div style="display:flex; align-items:center; gap:12px; background:var(--surface); border:1px solid var(--border-soft); border-radius:9px; padding:14px 16px;"><span style="color:var(--accent-text); font-family:'JetBrains Mono',monospace;">›</span><span style="font-size:14.5px; color:var(--text);">MLOps &amp; automation pipelines</span></div>
+          <div style="display:flex; align-items:center; gap:12px; background:var(--surface); border:1px solid var(--border-soft); border-radius:9px; padding:14px 16px;"><span style="color:var(--accent-text); font-family:'JetBrains Mono',monospace;">›</span><span style="font-size:14.5px; color:var(--text);">NLP, CV &amp; applied security</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ EXPERIENCE ============================ -->
+  <section id="experience" style="max-width:1080px; margin:0 auto; padding:80px 32px;">
+    <div data-reveal="true" style="display:flex; align-items:center; gap:18px; font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:.2em; text-transform:uppercase; color:var(--accent-text); margin-bottom:18px;"><span style="white-space:nowrap;"><span style="color:var(--dim);">02 /</span> Experience</span><span style="flex:1; height:1px; background:linear-gradient(90deg,var(--border),transparent);"></span></div>
+    <h2 data-reveal="true" style="font-family:'Space Grotesk',sans-serif; font-size:34px; font-weight:600; color:var(--heading); margin:0 0 48px; letter-spacing:-0.01em;">Where I've worked</h2>
+
+    <div style="max-width:820px;">
+      <div data-reveal="true" style="position:relative; padding-left:34px; padding-bottom:44px; border-left:1px solid var(--border);">
+        <div style="position:absolute; left:-6px; top:5px; width:11px; height:11px; border-radius:50%; background:var(--accent-text); box-shadow:0 0 0 4px rgba(34,211,238,.12);"></div>
+        <div style="display:flex; justify-content:space-between; align-items:baseline; flex-wrap:wrap; gap:6px; margin-bottom:4px;">
+          <h3 style="font-family:'Space Grotesk',sans-serif; font-size:20px; font-weight:600; color:var(--heading); margin:0;">Professional Teaching Fellow</h3>
+          <span style="font-family:'JetBrains Mono',monospace; font-size:13px; color:var(--muted);">Nov 2022 — Present</span>
+        </div>
+        <div style="font-size:14.5px; color:var(--accent-text); margin-bottom:14px;">University of Auckland <span style="color:var(--dim);">· Auckland, NZ</span></div>
+        <ul style="display:flex; flex-direction:column; gap:9px;">
+          <li style="position:relative; padding-left:20px; font-size:15px; line-height:1.6; color:var(--body);"><span style="position:absolute; left:0; color:var(--accent2);">▹</span>Prepare and deliver lectures across Data Structures &amp; Algorithms, Software Engineering Theory, Cryptographic Management, and Programming for Industry (Java).</li>
+          <li style="position:relative; padding-left:20px; font-size:15px; line-height:1.6; color:var(--body);"><span style="position:absolute; left:0; color:var(--accent2);">▹</span>Supervise examinations and assess assignments and projects, ensuring fair, consistent evaluation — alongside my Ph.D. research.</li>
+        </ul>
+      </div>
+
+      <div data-reveal="true" style="position:relative; padding-left:34px; padding-bottom:44px; border-left:1px solid var(--border);">
+        <div style="position:absolute; left:-6px; top:5px; width:11px; height:11px; border-radius:50%; background:var(--accent-text); box-shadow:0 0 0 4px rgba(34,211,238,.12);"></div>
+        <div style="display:flex; justify-content:space-between; align-items:baseline; flex-wrap:wrap; gap:6px; margin-bottom:4px;">
+          <h3 style="font-family:'Space Grotesk',sans-serif; font-size:20px; font-weight:600; color:var(--heading); margin:0;">Software Engineer</h3>
+          <span style="font-family:'JetBrains Mono',monospace; font-size:13px; color:var(--muted);">Jun 2022 — Oct 2022</span>
+        </div>
+        <div style="font-size:14.5px; color:var(--accent-text); margin-bottom:14px;">H2O.ai <span style="color:var(--dim);">· Remote</span></div>
+        <ul style="display:flex; flex-direction:column; gap:9px;">
+          <li style="position:relative; padding-left:20px; font-size:15px; line-height:1.6; color:var(--body);"><span style="position:absolute; left:0; color:var(--accent2);">▹</span>Built and maintained scalable web applications supporting internal and external ML workflows, boosting reliability and developer productivity through automation.</li>
+          <li style="position:relative; padding-left:20px; font-size:15px; line-height:1.6; color:var(--body);"><span style="position:absolute; left:0; color:var(--accent2);">▹</span>Designed robust end-to-end test automation pipelines with Python, Jenkins, and Groovy — cutting manual testing effort and increasing release velocity.</li>
+          <li style="position:relative; padding-left:20px; font-size:15px; line-height:1.6; color:var(--body);"><span style="position:absolute; left:0; color:var(--accent2);">▹</span>Led architecture of a best-in-class test automation framework, defining coding standards and the automation roadmap for cross-team use.</li>
+        </ul>
+      </div>
+
+      <div data-reveal="true" style="position:relative; padding-left:34px; padding-bottom:44px; border-left:1px solid var(--border);">
+        <div style="position:absolute; left:-6px; top:5px; width:11px; height:11px; border-radius:50%; background:var(--accent-text); box-shadow:0 0 0 4px rgba(34,211,238,.12);"></div>
+        <div style="display:flex; justify-content:space-between; align-items:baseline; flex-wrap:wrap; gap:6px; margin-bottom:4px;">
+          <h3 style="font-family:'Space Grotesk',sans-serif; font-size:20px; font-weight:600; color:var(--heading); margin:0;">Software Engineer</h3>
+          <span style="font-family:'JetBrains Mono',monospace; font-size:13px; color:var(--muted);">Jun 2021 — Jun 2022</span>
+        </div>
+        <div style="font-size:14.5px; color:var(--accent-text); margin-bottom:14px;">Axiata Digital Labs <span style="color:var(--dim);">· Colombo, Sri Lanka</span></div>
+        <ul style="display:flex; flex-direction:column; gap:9px;">
+          <li style="position:relative; padding-left:20px; font-size:15px; line-height:1.6; color:var(--body);"><span style="position:absolute; left:0; color:var(--accent2);">▹</span>Designed and maintained backend RESTful and SOAP APIs in Java &amp; Spring Boot for customer-facing services (Celcom Malaysia), with high reliability and seamless telecom integration.</li>
+          <li style="position:relative; padding-left:20px; font-size:15px; line-height:1.6; color:var(--body);"><span style="position:absolute; left:0; color:var(--accent2);">▹</span>Built an anomaly detection system on OpenTelemetry data and ML models to surface production performance issues proactively.</li>
+          <li style="position:relative; padding-left:20px; font-size:15px; line-height:1.6; color:var(--body);"><span style="position:absolute; left:0; color:var(--accent2);">▹</span>Developed an NLP-based repository classifier to flag relevant public GitHub projects, streamlining competitive analysis.</li>
+        </ul>
+      </div>
+
+      <div data-reveal="true" style="position:relative; padding-left:34px; padding-bottom:8px; border-left:1px solid transparent;">
+        <div style="position:absolute; left:-6px; top:5px; width:11px; height:11px; border-radius:50%; background:var(--dim); box-shadow:0 0 0 4px rgba(71,85,105,.12);"></div>
+        <div style="display:flex; justify-content:space-between; align-items:baseline; flex-wrap:wrap; gap:6px; margin-bottom:4px;">
+          <h3 style="font-family:'Space Grotesk',sans-serif; font-size:20px; font-weight:600; color:var(--heading); margin:0;">Intern Electronics Engineer</h3>
+          <span style="font-family:'JetBrains Mono',monospace; font-size:13px; color:var(--muted);">Jun 2019 — Dec 2019</span>
+        </div>
+        <div style="font-size:14.5px; color:var(--accent-text); margin-bottom:14px;">Paraqum Technologies <span style="color:var(--dim);">· Colombo, Sri Lanka</span></div>
+        <ul style="display:flex; flex-direction:column; gap:9px;">
+          <li style="position:relative; padding-left:20px; font-size:15px; line-height:1.6; color:var(--body);"><span style="position:absolute; left:0; color:var(--accent2);">▹</span>Built a GTP (GPRS Tunnelling Protocol) packet analysis tool and test environment for inspecting and debugging mobile core network traffic.</li>
+          <li style="position:relative; padding-left:20px; font-size:15px; line-height:1.6; color:var(--body);"><span style="position:absolute; left:0; color:var(--accent2);">▹</span>Implemented a load-balancing module to monitor interfaces and manage traffic, and optimised C++ modules for responsiveness and reliability.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ EDUCATION ============================ -->
+  <section id="education" style="max-width:1080px; margin:0 auto; padding:80px 32px;">
+    <div data-reveal="true" style="display:flex; align-items:center; gap:18px; font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:.2em; text-transform:uppercase; color:var(--accent-text); margin-bottom:18px;"><span style="white-space:nowrap;"><span style="color:var(--dim);">03 /</span> Education</span><span style="flex:1; height:1px; background:linear-gradient(90deg,var(--border),transparent);"></span></div>
+    <h2 data-reveal="true" style="font-family:'Space Grotesk',sans-serif; font-size:34px; font-weight:600; color:var(--heading); margin:0 0 40px; letter-spacing:-0.01em;">Academic background</h2>
+
+    <div style="display:flex; flex-direction:column; gap:18px;">
+      <div data-reveal="true" style="background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:30px 32px; transition:border-color .25s, transform .25s;" style-hover="border-color:var(--accent-text); transform:translateY(-3px);">
+        <div style="display:flex; justify-content:space-between; align-items:baseline; flex-wrap:wrap; gap:6px; margin-bottom:4px;">
+          <h3 style="font-family:'Space Grotesk',sans-serif; font-size:21px; font-weight:600; color:var(--heading); margin:0;">Ph.D. in Computer Science</h3>
+          <span style="font-family:'JetBrains Mono',monospace; font-size:13px; color:var(--muted);">Oct 2022 — Jan 2026</span>
+        </div>
+        <div style="font-size:15px; color:var(--accent-text); margin-bottom:16px;">The University of Auckland <span style="color:var(--dim);">· Auckland, NZ</span></div>
+        <ul style="display:flex; flex-direction:column; gap:9px;">
+          <li style="position:relative; padding-left:20px; font-size:15px; line-height:1.6; color:var(--body);"><span style="position:absolute; left:0; color:var(--accent2);">▹</span>Introduced a human-centric approach to automated access control policy generation, reducing both human error and AI-induced inaccuracies.</li>
+          <li style="position:relative; padding-left:20px; font-size:15px; line-height:1.6; color:var(--body);"><span style="position:absolute; left:0; color:var(--accent2);">▹</span>Designed LLM-driven workflows transforming natural-language requirements into structured, validated outputs via context retrieval, generation, validation, and user feedback.</li>
+          <li style="position:relative; padding-left:20px; font-size:15px; line-height:1.6; color:var(--body);"><span style="position:absolute; left:0; color:var(--accent2);">▹</span>Built ML-based error detection and recovery for safe deployment of AI-generated security policies in high-risk environments.</li>
+          <li style="position:relative; padding-left:20px; font-size:15px; line-height:1.6; color:var(--body);"><span style="position:absolute; left:0; color:var(--accent2);">▹</span>Resulted in 3 publications (one flagship cybersecurity conference, two Q1 journals) with 2 more under review at flagship CS &amp; HCI venues.</li>
+        </ul>
+      </div>
+
+      <div data-reveal="true" style="background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:30px 32px; transition:border-color .25s, transform .25s;" style-hover="border-color:var(--accent-text); transform:translateY(-3px);">
+        <div style="display:flex; justify-content:space-between; align-items:baseline; flex-wrap:wrap; gap:6px; margin-bottom:4px;">
+          <h3 style="font-family:'Space Grotesk',sans-serif; font-size:21px; font-weight:600; color:var(--heading); margin:0;">B.Sc. (Hons.) — Electronics &amp; Telecom Engineering</h3>
+          <span style="font-family:'JetBrains Mono',monospace; font-size:13px; color:var(--muted);">Nov 2016 — Jul 2021</span>
+        </div>
+        <div style="font-size:15px; color:var(--accent-text); margin-bottom:16px;">University of Moratuwa <span style="color:var(--dim);">· Colombo, Sri Lanka</span></div>
+        <ul style="display:flex; flex-direction:column; gap:9px;">
+          <li style="position:relative; padding-left:20px; font-size:15px; line-height:1.6; color:var(--body);"><span style="position:absolute; left:0; color:var(--accent2);">▹</span>GPA 3.92/4.2 — First Class; Dean's List Honouree across all four academic years.</li>
+          <li style="position:relative; padding-left:20px; font-size:15px; line-height:1.6; color:var(--body);"><span style="position:absolute; left:0; color:var(--accent2);">▹</span>Built a deep-learning maritime surveillance system for the Sri Lanka Navy (PyTorch, PyQt) — 2nd runner-up, National ICT Awards for Best University Project.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div data-reveal="true" style="margin-top:28px;">
+      <div style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); margin-bottom:14px;">Honours &amp; awards</div>
+      <div data-honours-grid="true" style="display:grid; grid-template-columns:repeat(3,1fr); gap:14px;">
+        <div style="background:var(--surface); border:1px solid var(--border-soft); border-radius:10px; padding:18px 20px;">
+          <div style="font-size:15px; font-weight:600; color:var(--text); margin-bottom:4px;">ESET Chillisoft Scholarship</div>
+          <div style="font-size:13px; color:var(--body);">Cybersecurity · ESET</div>
+          <div style="font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--dim); margin-top:8px;">2022</div>
+        </div>
+        <div style="background:var(--surface); border:1px solid var(--border-soft); border-radius:10px; padding:18px 20px;">
+          <div style="font-size:15px; font-weight:600; color:var(--text); margin-bottom:4px;">MBIE AI Project Scholarship</div>
+          <div style="font-size:13px; color:var(--body);">Human-Centric Security · MBIE NZ</div>
+          <div style="font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--dim); margin-top:8px;">2022</div>
+        </div>
+        <div style="background:var(--surface); border:1px solid var(--border-soft); border-radius:10px; padding:18px 20px;">
+          <div style="font-size:15px; font-weight:600; color:var(--text); margin-bottom:4px;">National ICT Awards</div>
+          <div style="font-size:13px; color:var(--body);">2nd Runner-up · NBQSA</div>
+          <div style="font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--dim); margin-top:8px;">2021</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ PUBLICATIONS ============================ -->
+  <section id="publications" style="max-width:1080px; margin:0 auto; padding:80px 32px;">
+    <div data-reveal="true" style="display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:12px; margin-bottom:18px;">
+      <div>
+        <div style="display:flex; align-items:center; gap:18px; font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:.2em; text-transform:uppercase; color:var(--accent-text); margin-bottom:18px;"><span style="white-space:nowrap;"><span style="color:var(--dim);">04 /</span> Research</span><span style="flex:1; height:1px; background:linear-gradient(90deg,var(--border),transparent);"></span></div>
+        <h2 style="font-family:'Space Grotesk',sans-serif; font-size:34px; font-weight:600; color:var(--heading); margin:0; letter-spacing:-0.01em;">Selected publications</h2>
+      </div>
+      <a href="https://scholar.google.com/" target="_blank" style="font-family:'JetBrains Mono',monospace; font-size:13px; color:var(--accent-text); border:1px solid var(--accent-text); padding:9px 16px; border-radius:8px; transition:all .25s;" style-hover="background:rgba(34,211,238,.1);">Google Scholar ↗</a>
+    </div>
+
+    <div style="display:flex; flex-direction:column;">
+      <div data-reveal="true" style="display:flex; gap:24px; padding:24px 0; border-bottom:1px solid var(--border-soft);">
+        <div style="flex:none; width:130px;"><span style="font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--accent-text); border:1px solid var(--accent-text); padding:4px 10px; border-radius:5px;">Journal</span><div style="font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--muted); margin-top:10px;">2024</div></div>
+        <div><h3 style="font-family:'Space Grotesk',sans-serif; font-size:18px; font-weight:600; color:var(--heading); margin:0 0 6px; line-height:1.35;">SoK: Access Control Policy Generation from High-Level Natural Language Requirements</h3><div style="font-size:14px; color:var(--body); margin-bottom:4px;"><strong style="color:var(--accent-text); font-weight:500;">Jayasundara S. H.</strong>, Gamagedara Arachchilage N. A., Russello G.</div><div style="font-size:13.5px; color:var(--muted); font-style:italic;">ACM Computing Surveys, 57(4), 1–37</div></div>
+      </div>
+
+      <div data-reveal="true" style="display:flex; gap:24px; padding:24px 0; border-bottom:1px solid var(--border-soft);">
+        <div style="flex:none; width:130px;"><span style="font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--accent2); border:1px solid var(--accent2); padding:4px 10px; border-radius:5px;">Conference</span><div style="font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--muted); margin-top:10px;">2024</div></div>
+        <div><h3 style="font-family:'Space Grotesk',sans-serif; font-size:18px; font-weight:600; color:var(--heading); margin:0 0 6px; line-height:1.35;">"AccessFormer": Feedback-Driven Access Control Policy Generation Framework</h3><div style="font-size:14px; color:var(--body); margin-bottom:4px;"><strong style="color:var(--accent-text); font-weight:500;">Jayasundara S. H.</strong>, Arachchilage N. A. G., Russello G.</div><div style="font-size:13.5px; color:var(--muted); font-style:italic;">Symposium on Usable Security and Privacy (USEC)</div></div>
+      </div>
+
+      <div data-reveal="true" style="display:flex; gap:24px; padding:24px 0; border-bottom:1px solid var(--border-soft);">
+        <div style="flex:none; width:130px;"><span style="font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--accent-text); border:1px solid var(--accent-text); padding:4px 10px; border-radius:5px;">Journal</span><div style="font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--muted); margin-top:10px;">2026</div></div>
+        <div><h3 style="font-family:'Space Grotesk',sans-serif; font-size:18px; font-weight:600; color:var(--heading); margin:0 0 6px; line-height:1.35;">AGentVLM: Access Control Policy Generation and Verification Framework with Language Models</h3><div style="font-size:14px; color:var(--body); margin-bottom:4px;"><strong style="color:var(--accent-text); font-weight:500;">Jayasundara S. H.</strong>, Gamagedara Arachchilage N. A., Russello G.</div><div style="font-size:13.5px; color:var(--muted); font-style:italic;">Journal of Information Security and Applications</div></div>
+      </div>
+
+      <div data-reveal="true" style="display:flex; gap:24px; padding:24px 0; border-bottom:1px solid var(--border-soft);">
+        <div style="flex:none; width:130px;"><span style="font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--accent2); border:1px solid var(--accent2); padding:4px 10px; border-radius:5px;">Conference</span><div style="font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--muted); margin-top:10px;">2023</div></div>
+        <div><h3 style="font-family:'Space Grotesk',sans-serif; font-size:18px; font-weight:600; color:var(--heading); margin:0 0 6px; line-height:1.35;">KORSAL: Key-Point Based Online Real-Time Spatio-Temporal Action Localization</h3><div style="font-size:14px; color:var(--body); margin-bottom:4px;">Abeywardena K., Sumanthiran S., <strong style="color:var(--accent-text); font-weight:500;">Jayasundara S. H.</strong>, Karunasena S., Rodrigo R., Jayasekara P.</div><div style="font-size:13.5px; color:var(--muted); font-style:italic;">IEEE Canadian Conference on Electrical and Computer Engineering (CCECE)</div></div>
+      </div>
+
+      <div data-reveal="true" style="display:flex; gap:24px; padding:24px 0; border-bottom:1px solid var(--border-soft);">
+        <div style="flex:none; width:130px;"><span style="font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--muted); border:1px dashed var(--muted); padding:4px 10px; border-radius:5px;">In Submission</span><div style="font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--muted); margin-top:10px;">2026</div></div>
+        <div><h3 style="font-family:'Space Grotesk',sans-serif; font-size:18px; font-weight:600; color:var(--heading); margin:0 0 6px; line-height:1.35;">CHAGent: Context-Aware Human-Centric Access Control Policy Generation</h3><div style="font-size:14px; color:var(--body); margin-bottom:4px;"><strong style="color:var(--accent-text); font-weight:500;">Jayasundara S. H.</strong>, Gamagedara Arachchilage N. A., Biddle R., Russello G.</div><div style="font-size:13.5px; color:var(--muted); font-style:italic;">IEEE Symposium on Security and Privacy</div></div>
+      </div>
+
+      <div data-reveal="true" style="display:flex; gap:24px; padding:24px 0;">
+        <div style="flex:none; width:130px;"><span style="font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--muted); border:1px dashed var(--muted); padding:4px 10px; border-radius:5px;">In Submission</span><div style="font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--muted); margin-top:10px;">2026</div></div>
+        <div><h3 style="font-family:'Space Grotesk',sans-serif; font-size:18px; font-weight:600; color:var(--heading); margin:0 0 6px; line-height:1.35;">"This is going to change the game": Design and Evaluation of a Usable and Accurate Automated Access Control Policy Generation System</h3><div style="font-size:14px; color:var(--body); margin-bottom:4px;"><strong style="color:var(--accent-text); font-weight:500;">Jayasundara S. H.</strong>, Gamagedara Arachchilage N. A., Biddle R., Russello G.</div><div style="font-size:13.5px; color:var(--muted); font-style:italic;">ACM CHI Conference on Human Factors in Computing Systems</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ PROJECTS ============================ -->
+  <section id="projects" style="max-width:1080px; margin:0 auto; padding:80px 32px;">
+    <div data-reveal="true" style="display:flex; align-items:center; gap:18px; font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:.2em; text-transform:uppercase; color:var(--accent-text); margin-bottom:18px;"><span style="white-space:nowrap;"><span style="color:var(--dim);">05 /</span> Projects</span><span style="flex:1; height:1px; background:linear-gradient(90deg,var(--border),transparent);"></span></div>
+    <h2 data-reveal="true" style="font-family:'Space Grotesk',sans-serif; font-size:34px; font-weight:600; color:var(--heading); margin:0 0 40px; letter-spacing:-0.01em;">Things I've built</h2>
+
+    <div data-projects-grid="true" style="display:grid; grid-template-columns:repeat(3,1fr); gap:18px;">
+      <a data-reveal="true" href="https://sakunah.com/ragatouille-book" target="_blank" style="display:block; background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:26px; transition:border-color .25s, transform .25s, box-shadow .25s;" style-hover="border-color:var(--accent-text); transform:translateY(-5px); box-shadow:0 24px 48px -24px rgba(34,211,238,.3);">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:18px;">
+          <div style="width:46px; height:46px; border-radius:11px; background:linear-gradient(135deg,rgba(34,211,238,.18),rgba(59,130,246,.18)); border:1px solid rgba(34,211,238,.28); display:flex; align-items:center; justify-content:center; color:var(--accent-soft);">
+            <svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4.5h6.5a3 3 0 0 1 3 3V20a2.5 2.5 0 0 0-2.5-2.2H2z"/><path d="M22 4.5h-6.5a3 3 0 0 0-3 3V20a2.5 2.5 0 0 1 2.5-2.2H22z"/></svg>
+          </div>
+          <span style="font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--accent-text);">↗</span>
+        </div>
+        <h3 style="font-family:'Space Grotesk',sans-serif; font-size:19px; font-weight:600; color:var(--heading); margin:0 0 8px;">Ragatouille</h3>
+        <p style="font-size:14px; line-height:1.6; color:var(--body); margin:0 0 16px;">The ultimate guide to mastering Retrieval-Augmented Generation with LangChain — featured on the LangChain LinkedIn page.</p>
+        <div style="display:flex; flex-wrap:wrap; gap:7px;">
+          <span style="font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--chip-text); background:var(--chip-bg); border:1px solid var(--border); padding:4px 10px; border-radius:6px;">NLP</span>
+          <span style="font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--chip-text); background:var(--chip-bg); border:1px solid var(--border); padding:4px 10px; border-radius:6px;">Python</span>
+          <span style="font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--chip-text); background:var(--chip-bg); border:1px solid var(--border); padding:4px 10px; border-radius:6px;">LangChain</span>
+          <span style="font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--chip-text); background:var(--chip-bg); border:1px solid var(--border); padding:4px 10px; border-radius:6px;">Neo4J</span>
+        </div>
+      </a>
+
+      <div data-reveal="true" data-delay="100" style="display:block; background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:26px; transition:border-color .25s, transform .25s, box-shadow .25s;" style-hover="border-color:var(--accent-text); transform:translateY(-5px); box-shadow:0 24px 48px -24px rgba(34,211,238,.3);">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:18px;">
+          <div style="width:46px; height:46px; border-radius:11px; background:linear-gradient(135deg,rgba(34,211,238,.18),rgba(59,130,246,.18)); border:1px solid rgba(34,211,238,.28); display:flex; align-items:center; justify-content:center; color:var(--accent-soft);">
+            <svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="6" r="2.3"/><circle cx="19" cy="6" r="2.3"/><circle cx="12" cy="18.5" r="2.3"/><line x1="6.9" y1="7.4" x2="10.4" y2="16.6"/><line x1="17.1" y1="7.4" x2="13.6" y2="16.6"/><line x1="7.3" y1="6" x2="16.7" y2="6"/></svg>
+          </div>
+          <span style="font-family:'JetBrains Mono',monospace; font-size:10px; color:#f59e0b; border:1px solid rgba(245,158,11,.4); padding:3px 8px; border-radius:5px;">WIP</span>
+        </div>
+        <h3 style="font-family:'Space Grotesk',sans-serif; font-size:19px; font-weight:600; color:var(--heading); margin:0 0 8px;">AgenticSLR</h3>
+        <p style="font-size:14px; line-height:1.6; color:var(--body); margin:0 0 16px;">A web-based, agentic systematic literature review platform built on LangGraph — reducing the manual burden every first-year Ph.D. student faces.</p>
+        <div style="display:flex; flex-wrap:wrap; gap:7px;">
+          <span style="font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--chip-text); background:var(--chip-bg); border:1px solid var(--border); padding:4px 10px; border-radius:6px;">LangGraph</span>
+          <span style="font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--chip-text); background:var(--chip-bg); border:1px solid var(--border); padding:4px 10px; border-radius:6px;">FastAPI</span>
+          <span style="font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--chip-text); background:var(--chip-bg); border:1px solid var(--border); padding:4px 10px; border-radius:6px;">React</span>
+          <span style="font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--chip-text); background:var(--chip-bg); border:1px solid var(--border); padding:4px 10px; border-radius:6px;">TypeScript</span>
+        </div>
+      </div>
+
+      <div data-reveal="true" data-delay="200" style="display:block; background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:26px; transition:border-color .25s, transform .25s, box-shadow .25s;" style-hover="border-color:var(--accent-text); transform:translateY(-5px); box-shadow:0 24px 48px -24px rgba(34,211,238,.3);">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:18px;">
+          <div style="width:46px; height:46px; border-radius:11px; background:linear-gradient(135deg,rgba(34,211,238,.18),rgba(59,130,246,.18)); border:1px solid rgba(34,211,238,.28); display:flex; align-items:center; justify-content:center; color:var(--accent-soft);">
+            <svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4.6"/><line x1="12" y1="12" x2="19.4" y2="5.6"/><circle cx="12" cy="12" r="1.3" fill="currentColor" stroke="none"/></svg>
+          </div>
+          <span style="font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--accent-text); border:1px solid var(--accent-text); padding:3px 8px; border-radius:5px;">Award</span>
+        </div>
+        <h3 style="font-family:'Space Grotesk',sans-serif; font-size:19px; font-weight:600; color:var(--heading); margin:0 0 8px;">Maritime Surveillance</h3>
+        <p style="font-size:14px; line-height:1.6; color:var(--body); margin:0 0 16px;">Deep-learning system for the Sri Lanka Navy detecting suspicious maritime activity. 2nd runner-up, National ICT Awards.</p>
+        <div style="display:flex; flex-wrap:wrap; gap:7px;">
+          <span style="font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--chip-text); background:var(--chip-bg); border:1px solid var(--border); padding:4px 10px; border-radius:6px;">PyTorch</span>
+          <span style="font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--chip-text); background:var(--chip-bg); border:1px solid var(--border); padding:4px 10px; border-radius:6px;">Computer Vision</span>
+          <span style="font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--chip-text); background:var(--chip-bg); border:1px solid var(--border); padding:4px 10px; border-radius:6px;">PyQt</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ SKILLS ============================ -->
+  <section id="skills" style="max-width:1080px; margin:0 auto; padding:80px 32px;">
+    <div data-reveal="true" style="display:flex; align-items:center; gap:18px; font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:.2em; text-transform:uppercase; color:var(--accent-text); margin-bottom:18px;"><span style="white-space:nowrap;"><span style="color:var(--dim);">06 /</span> Skills</span><span style="flex:1; height:1px; background:linear-gradient(90deg,var(--border),transparent);"></span></div>
+    <h2 data-reveal="true" style="font-family:'Space Grotesk',sans-serif; font-size:34px; font-weight:600; color:var(--heading); margin:0 0 40px; letter-spacing:-0.01em;">Tech stack &amp; toolbox</h2>
+
+    <div data-skills-grid="true" style="display:grid; grid-template-columns:repeat(2,1fr); gap:18px;">
+      <div data-reveal="true" style="background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:24px 26px;">
+        <div style="font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--accent-text); margin-bottom:16px;">// languages</div>
+        <div style="display:flex; flex-wrap:wrap; gap:8px;">
+          <span style="font-size:13.5px; color:var(--chip-text); background:var(--chip-bg); border:1px solid var(--border); padding:7px 13px; border-radius:7px;">Python</span>
+          <span style="font-size:13.5px; color:var(--chip-text); background:var(--chip-bg); border:1px solid var(--border); padding:7px 13px; border-radius:7px;">Java</span>
+          <span style="font-size:13.5px; color:var(--chip-text); background:var(--chip-bg); border:1px solid var(--border); padding:7px 13px; border-radius:7px;">C / C++</span>
+          <span style="font-size:13.5px; color:var(--chip-text); background:var(--chip-bg); border:1px solid var(--border); padding:7px 13px; border-radius:7px;">Go</span>
+          <span style="font-size:13.5px; color:var(--chip-text); background:var(--chip-bg); border:1px solid var(--border); padding:7px 13px; border-radius:7px;">C# / .NET</span>
+          <span style="font-size:13.5px; color:var(--chip-text); background:var(--chip-bg); border:1px solid var(--border); padding:7px 13px; border-radius:7px;">TypeScript</span>
+          <span style="font-size:13.5px; color:var(--chip-text); background:var(--chip-bg); border:1px solid var(--border); padding:7px 13px; border-radius:7px;">Dart</span>
+        </div>
+      </div>
+
+      <div data-reveal="true" data-delay="80" style="background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:24px 26px;">
+        <div style="font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--accent-text); margin-bottom:16px;">// ml &amp; ai</div>
+        <div style="display:flex; flex-wrap:wrap; gap:8px;">
+          <span style="font-size:13.5px; color:var(--chip-text); background:var(--chip-bg); border:1px solid var(--border); padding:7px 13px; border-radius:7px;">PyTorch</span>
+          <span style="font-size:13.5px; color:var(--chip-text); background:var(--chip-bg); border:1px solid var(--border); padding:7px 13px; border-radius:7px;">TensorFlow</span>
+          <span style="font-size:13.5px; color:var(--chip-text); background:var(--chip-bg); border:1px solid var(--border); padding:7px 13px; border-radius:7px;">Keras</span>
+          <span style="font-size:13.5px; color:var(--chip-text); background:var(--chip-bg); border:1px solid var(--border); padding:7px 13px; border-radius:7px;">Scikit-learn</span>
+          <span style="font-size:13.5px; color:var(--chip-text); background:var(--chip-bg); border:1px solid var(--border); padding:7px 13px; border-radius:7px;">LangChain</span>
+          <span style="font-size:13.5px; color:var(--chip-text); background:var(--chip-bg); border:1px solid var(--border); padding:7px 13px; border-radius:7px;">LangGraph</span>
+          <span style="font-size:13.5px; color:var(--chip-text); background:var(--chip-bg); border:1px solid var(--border); padding:7px 13px; border-radius:7px;">CrewAI</span>
+          <span style="font-size:13.5px; color:var(--chip-text); background:var(--chip-bg); border:1px solid var(--border); padding:7px 13px; border-radius:7px;">AutoGen</span>
+          <span style="font-size:13.5px; color:var(--chip-text); background:var(--chip-bg); border:1px solid var(--border); padding:7px 13px; border-radius:7px;">Google ADK</span>
+        </div>
+      </div>
+
+      <div data-reveal="true" style="background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:24px 26px;">
+        <div style="font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--accent-text); margin-bottom:16px;">// backend &amp; web</div>
+        <div style="display:flex; flex-wrap:wrap; gap:8px;">
+          <span style="font-size:13.5px; color:var(--chip-text); background:var(--chip-bg); border:1px solid var(--border); padding:7px 13px; border-radius:7px;">Spring Boot</span>
+          <span style="font-size:13.5px; color:var(--chip-text); background:var(--chip-bg); border:1px solid var(--border); padding:7px 13px; border-radius:7px;">FastAPI</span>
+          <span style="font-size:13.5px; color:var(--chip-text); background:var(--chip-bg); border:1px solid var(--border); padding:7px 13px; border-radius:7px;">REST</span>
+          <span style="font-size:13.5px; color:var(--chip-text); background:var(--chip-bg); border:1px solid var(--border); padding:7px 13px; border-radius:7px;">JSONRPC</span>
+          <span style="font-size:13.5px; color:var(--chip-text); background:var(--chip-bg); border:1px solid var(--border); padding:7px 13px; border-radius:7px;">SOAP</span>
+          <span style="font-size:13.5px; color:var(--chip-text); background:var(--chip-bg); border:1px solid var(--border); padding:7px 13px; border-radius:7px;">SQL · MongoDB · Neo4J</span>
+        </div>
+      </div>
+
+      <div data-reveal="true" data-delay="80" style="background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:24px 26px;">
+        <div style="font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--accent-text); margin-bottom:16px;">// cloud &amp; devops/mlops</div>
+        <div style="display:flex; flex-wrap:wrap; gap:8px;">
+          <span style="font-size:13.5px; color:var(--chip-text); background:var(--chip-bg); border:1px solid var(--border); padding:7px 13px; border-radius:7px;">AWS</span>
+          <span style="font-size:13.5px; color:var(--chip-text); background:var(--chip-bg); border:1px solid var(--border); padding:7px 13px; border-radius:7px;">Azure</span>
+          <span style="font-size:13.5px; color:var(--chip-text); background:var(--chip-bg); border:1px solid var(--border); padding:7px 13px; border-radius:7px;">Docker</span>
+          <span style="font-size:13.5px; color:var(--chip-text); background:var(--chip-bg); border:1px solid var(--border); padding:7px 13px; border-radius:7px;">Kubernetes</span>
+          <span style="font-size:13.5px; color:var(--chip-text); background:var(--chip-bg); border:1px solid var(--border); padding:7px 13px; border-radius:7px;">Jenkins</span>
+          <span style="font-size:13.5px; color:var(--chip-text); background:var(--chip-bg); border:1px solid var(--border); padding:7px 13px; border-radius:7px;">GitHub Actions</span>
+          <span style="font-size:13.5px; color:var(--chip-text); background:var(--chip-bg); border:1px solid var(--border); padding:7px 13px; border-radius:7px;">MLflow</span>
+          <span style="font-size:13.5px; color:var(--chip-text); background:var(--chip-bg); border:1px solid var(--border); padding:7px 13px; border-radius:7px;">Airflow</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ CONTACT (dark spotlight in both themes) ============================ -->
+  <section id="contact" style="max-width:1080px; margin:0 auto; padding:80px 32px 60px;">
+    <div data-reveal="true" data-contact-panel="true" style="position:relative; background:radial-gradient(120% 130% at 50% 0%, #0e2748 0%, #0b1322 60%); border:1px solid rgba(34,211,238,.18); border-radius:18px; padding:64px 48px; text-align:center; overflow:hidden;">
+      <div style="position:absolute; top:-100px; left:50%; transform:translateX(-50%); width:420px; height:300px; background:radial-gradient(circle, rgba(34,211,238,.18), transparent 65%); filter:blur(30px); pointer-events:none;"></div>
+      <div style="position:relative;">
+        <div style="font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:.2em; text-transform:uppercase; color:#22d3ee; margin-bottom:18px;"><span style="color:#475569;">07 /</span> Contact</div>
+        <h2 style="font-family:'Space Grotesk',sans-serif; font-size:42px; font-weight:700; color:#f1f5f9; margin:0 0 16px; letter-spacing:-0.02em;">Let's build something.</h2>
+        <p style="font-size:16.5px; line-height:1.7; color:#94a3b8; margin:0 auto 32px; max-width:480px;">I'm open to Software Engineer and ML / AI Engineer opportunities. Whether it's a role, a collaboration, or a question — my inbox is always open.</p>
+        <a href="mailto:sakunaj1996@gmail.com" style="display:inline-block; font-size:15px; color:#070b14; background:linear-gradient(135deg,#22d3ee,#3b82f6); padding:14px 30px; border-radius:10px; font-weight:600; transition:transform .2s, box-shadow .2s;" style-hover="transform:translateY(-2px); box-shadow:0 14px 34px -10px rgba(34,211,238,.5);">sakunaj1996@gmail.com</a>
+        <div style="display:flex; justify-content:center; gap:28px; margin-top:36px; flex-wrap:wrap;">
+          <a href="https://www.linkedin.com/in/sakuna-harinda/" target="_blank" style="font-family:'JetBrains Mono',monospace; font-size:13.5px; color:#94a3b8; transition:color .25s;" style-hover="color:#67e8f9;">LinkedIn ↗</a>
+          <a href="https://github.com/sakunaharinda" target="_blank" style="font-family:'JetBrains Mono',monospace; font-size:13.5px; color:#94a3b8; transition:color .25s;" style-hover="color:#67e8f9;">GitHub ↗</a>
+          <a href="cv.pdf" target="_blank" style="font-family:'JetBrains Mono',monospace; font-size:13.5px; color:#94a3b8; transition:color .25s;" style-hover="color:#67e8f9;">Resume ↗</a>
+          <span style="font-family:'JetBrains Mono',monospace; font-size:13.5px; color:#475569;">📍 Auckland, NZ</span>
+        </div>
+      </div>
+    </div>
+
+    <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-top:48px; padding-top:28px; border-top:1px solid var(--border-faint);">
+      <div style="font-family:'JetBrains Mono',monospace; font-size:12.5px; color:var(--dim);">© 2026 Sakuna Harinda Jayasundara</div>
+      <div style="font-family:'JetBrains Mono',monospace; font-size:12.5px; color:var(--dim);">Designed &amp; built with care · Auckland, NZ</div>
+    </div>
+  </section>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  componentDidMount() {
+    const root = this.root || document;
+
+    // ---- theme: restore saved ----
+    let saved = 'dark';
+    try { saved = localStorage.getItem('sakuna-theme') || 'dark'; } catch (e) {}
+    this.applyTheme(saved);
+
+    // ---- scroll reveal ----
+    const items = [...root.querySelectorAll('[data-reveal]')];
+    items.forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(26px)';
+      el.style.transition = 'opacity .8s cubic-bezier(.16,1,.3,1), transform .8s cubic-bezier(.16,1,.3,1)';
+      el.style.willChange = 'opacity, transform';
+    });
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          const el = e.target;
+          const d = parseInt(el.dataset.delay || '0', 10);
+          setTimeout(() => { el.style.opacity = '1'; el.style.transform = 'none'; }, d);
+          el.querySelectorAll('[data-count]').forEach(c => this.countUp(c));
+          io.unobserve(el);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+    items.forEach(el => io.observe(el));
+
+    // ---- typewriter ----
+    this.startTypewriter(root);
+
+    // ---- page-wide cursor glow ----
+    const glow = root.querySelector('[data-glow]');
+    if (glow) {
+      this._glow = glow;
+      this._move = (ev) => {
+        glow.style.transform = `translate(${ev.clientX - 240}px, ${ev.clientY - 240}px)`;
+      };
+      window.addEventListener('mousemove', this._move, { passive: true });
+    }
+
+    // ---- nav active state ----
+    this.setupNav(root);
+
+    // ---- scroll progress ----
+    const bar = root.querySelector('[data-progress]');
+    if (bar) {
+      this._scroll = () => {
+        const h = document.documentElement.scrollHeight - window.innerHeight;
+        bar.style.width = (h > 0 ? (window.scrollY / h) * 100 : 0) + '%';
+      };
+      window.addEventListener('scroll', this._scroll, { passive: true });
+      this._scroll();
+    }
+  }
+
+  componentWillUnmount() {
+    if (this._move) window.removeEventListener('mousemove', this._move);
+    if (this._scroll) window.removeEventListener('scroll', this._scroll);
+  }
+
+  applyTheme(t) {
+    const root = this.root;
+    if (!root) return;
+    root.dataset.theme = t;
+    const bg = (t === 'light') ? '#eef2f8' : '#070b14';
+    document.documentElement.style.backgroundColor = bg;
+    document.body.style.backgroundColor = bg;
+    const moon = root.querySelector('[data-icon-moon]');
+    const sun = root.querySelector('[data-icon-sun]');
+    if (moon && sun) {
+      moon.style.display = (t === 'dark') ? 'flex' : 'none';
+      sun.style.display = (t === 'light') ? 'flex' : 'none';
+    }
+  }
+
+  countUp(el) {
+    if (el._counted) return; el._counted = true;
+    const target = parseFloat(el.dataset.count);
+    const dec = parseInt(el.dataset.decimals || '0', 10);
+    const suffix = el.dataset.suffix || '';
+    const dur = 1500, start = performance.now();
+    const tick = (now) => {
+      const p = Math.min(1, (now - start) / dur);
+      const e = 1 - Math.pow(1 - p, 3);
+      el.textContent = (target * e).toFixed(dec) + suffix;
+      if (p < 1) requestAnimationFrame(tick);
+      else el.textContent = target.toFixed(dec) + suffix;
+    };
+    requestAnimationFrame(tick);
+  }
+
+  startTypewriter(root) {
+    const el = root.querySelector('[data-typewriter]');
+    if (!el) return;
+    const words = ['Software Engineer', 'ML / AI Engineer', 'Backend Engineer', 'Researcher'];
+    let wi = 0, ci = 0, deleting = false;
+    const loop = () => {
+      const w = words[wi];
+      if (!deleting) {
+        ci++; el.textContent = w.slice(0, ci);
+        if (ci === w.length) { deleting = true; setTimeout(loop, 1700); return; }
+      } else {
+        ci--; el.textContent = w.slice(0, ci);
+        if (ci === 0) { deleting = false; wi = (wi + 1) % words.length; }
+      }
+      setTimeout(loop, deleting ? 45 : 85);
+    };
+    loop();
+  }
+
+  setupNav(root) {
+    const links = [...root.querySelectorAll('[data-nav]')];
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          const cs = getComputedStyle(root);
+          const active = cs.getPropertyValue('--accent-text').trim() || '#22d3ee';
+          const idle = cs.getPropertyValue('--body').trim() || '#94a3b8';
+          links.forEach(l => { l.style.color = (l.dataset.nav === e.target.id) ? active : idle; });
+        }
+      });
+    }, { rootMargin: '-45% 0px -50% 0px' });
+    root.querySelectorAll('section[id]').forEach(s => obs.observe(s));
+  }
+
+  renderVals() {
+    return {
+      setRoot: (el) => { this.root = el; },
+      toggleTheme: () => {
+        const cur = (this.root && this.root.dataset.theme) || 'dark';
+        const next = (cur === 'light') ? 'dark' : 'light';
+        this.applyTheme(next);
+        try { localStorage.setItem('sakuna-theme', next); } catch (e) {}
+      }
+    };
+  }
+}
+</script>
+</body>
+</html>
