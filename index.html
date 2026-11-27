@@ -292,6 +292,7 @@
       .desktop-nav { display: none; }
       .hero { grid-template-columns: 1fr; }
       .hero-art { display: none; }
+      .hero-meta .social-links { display: none; }
     }
     @media (max-width: 760px) {
       :root { scroll-padding-top: 100px; }
@@ -307,7 +308,6 @@
       .hero-actions { margin-top: 24px; }
       :root .hero-actions > :is(.button, .text-link) { padding-inline: 12px; }
       .hero-meta { display: grid; grid-template-columns: minmax(0, 1fr); }
-      .hero-meta .social-links { width: fit-content; justify-content: flex-start; gap: 12px; flex-wrap: nowrap; }
       .location { margin-top: 20px; }
       .hero-art { max-width: 400px; justify-self: center; }
       .section { padding: 36px 0 44px; }
@@ -446,7 +446,7 @@
         <div class="section-heading"><h2 id="experience-title">Work experience</h2><p class="section-note">Industry, research &amp; teaching</p></div>
         <div>
           <article class="experience-entry">
-            <div class="experience-meta"><p><time datetime="2026">Jul 2026</time>–present</p></div>
+            <div class="experience-meta"><p><time datetime="2026-07">Jul 2026</time>–present</p><p class="place">Auckland, New Zealand</p></div>
             <div><h3>Founding ML Engineer</h3><p class="organization">Helixar.ai</p><ul><li>Build an enterprise control plane for AI agent governance and runtime security.</li><li>Work across agent identity, scope enforcement, runtime monitoring and delegation provenance using Python, TypeScript, LangChain and MCP.</li></ul></div>
           </article>
           <article class="experience-entry">
