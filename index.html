@@ -122,7 +122,8 @@
     h1 .accent { color: var(--accent); }
     .hero .intro { max-width: 590px; margin-top: 28px; color: var(--body); font-size: 18px; line-height: 1.8; }
     .hero .intro strong { color: var(--ink); font-weight: 600; }
-    .hero-actions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; width: min(100%, 400px); margin-top: 32px; }
+    .hero-actions, .hero-meta { width: min(100%, 400px); }
+    .hero-actions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-top: 32px; }
     .button { display: inline-flex; justify-content: center; align-items: center; gap: 24px; min-height: 48px; padding: 14px 20px; border-radius: 6px; background: var(--accent); color: var(--button-text); font-size: 14px; font-weight: 600; }
     .button:hover { color: var(--button-text); background: var(--accent-hover); }
     .button .icon, .text-link .icon, .nav-contact .icon { transition: transform 220ms var(--ease); }
@@ -200,7 +201,7 @@
     .footer-links { display: flex; flex-wrap: wrap; gap: 24px; }
     .footer-links a { display: inline-flex; align-items: center; gap: 6px; min-height: 36px; }
     .footer-links .icon { width: 14px; height: 14px; }
-    .hero-meta { display: flex; align-items: center; flex-wrap: wrap; gap: 12px 24px; margin-top: 24px; }
+    .hero-meta { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-top: 24px; }
     .hero-meta .location { margin-top: 0; }
     .social-links { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; }
     .footer-links.social-links { gap: 8px; }
@@ -286,6 +287,8 @@
       .hero .intro { margin-top: 24px; max-width: 60ch; font-size: 16px; line-height: 1.8; }
       .hero-actions { margin-top: 24px; }
       :root .hero-actions > :is(.button, .text-link) { padding-inline: 12px; }
+      .hero-meta { display: grid; grid-template-columns: minmax(0, 1fr); }
+      .hero-meta .social-links { width: 100%; justify-content: space-between; flex-wrap: nowrap; }
       .location { margin-top: 20px; }
       .hero-art { max-width: 400px; justify-self: center; }
       .section { padding: 36px 0 44px; }
