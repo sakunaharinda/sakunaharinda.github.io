@@ -41,7 +41,6 @@
       --graph-edge-opacity: .12;
       --graph-background: var(--page);
       --glass: rgba(255, 253, 249, .76);
-      --glass-menu: rgba(255, 253, 249, .94);
       --glass-control: rgba(255, 255, 255, .68);
       --glass-selected: rgba(255, 255, 255, .94);
       --glass-highlight: rgba(255, 255, 255, .96);
@@ -79,7 +78,6 @@
       --graph-node: 180, 145, 159;
       --graph-edge-opacity: .2;
       --glass: rgba(38, 31, 35, .8);
-      --glass-menu: rgba(38, 31, 35, .95);
       --glass-control: rgba(255, 255, 255, .065);
       --glass-selected: rgba(253, 164, 175, .16);
       --glass-highlight: rgba(255, 255, 255, .16);
@@ -108,18 +106,9 @@
     .monogram { display: inline-grid; place-items: center; width: 36px; height: 36px; border: 1px solid var(--control-border); border-radius: 50%; font-size: 12px; letter-spacing: -.02em; transition: color 200ms var(--ease), background-color 200ms var(--ease), border-color 200ms var(--ease); }
     .brand:hover .monogram { background: var(--accent); border-color: var(--accent); color: var(--button-text); }
     .header-actions { display: flex; align-items: center; gap: 24px; }
-    .theme-control { position: relative; flex: 0 0 auto; width: 44px; }
+    .theme-control { display: grid; place-items: center; flex: 0 0 auto; width: 44px; height: 44px; padding: 0; border: 0; border-radius: 50%; color: var(--ink); background: var(--page); cursor: pointer; }
     .theme-control[hidden] { display: none; }
-    .theme-control > summary { display: grid; place-items: center; width: 44px; height: 44px; border: 0; border-radius: 50%; color: var(--ink); background: var(--page); cursor: pointer; list-style: none; }
-    .theme-control > summary::-webkit-details-marker { display: none; }
-    .theme-control > summary:hover, .theme-control[open] > summary { color: var(--accent); border-color: var(--accent); background: var(--accent-wash); }
-    .theme-menu { position: absolute; z-index: 20; right: 0; top: calc(100% + 12px); width: 176px; padding: 8px; border: 0; border-radius: 12px; background: var(--surface); }
-    .theme-option { display: flex; align-items: center; justify-content: space-between; gap: 16px; width: 100%; min-height: 44px; padding: 10px 12px; border: 0; border-radius: 6px; background: transparent; color: var(--ink); font-size: 14px; text-align: left; cursor: pointer; }
-    .theme-option:hover, .theme-option[aria-pressed="true"] { background: var(--accent-wash); color: var(--accent); }
-    .theme-option-label { display: inline-flex; align-items: center; gap: 10px; }
-    .theme-option .icon { width: 16px; height: 16px; }
-    .theme-option .theme-check { visibility: hidden; }
-    .theme-option[aria-pressed="true"] .theme-check { visibility: visible; }
+    .theme-control:hover { color: var(--accent); background: var(--accent-wash); }
     .desktop-nav { display: flex; align-items: center; gap: 32px; font-size: 14px; font-weight: 500; }
     .desktop-nav > a:not(.nav-contact) { position: relative; padding-block: 12px; }
     .desktop-nav > a:not(.nav-contact)::after { content: ''; position: absolute; left: 0; right: 0; bottom: 4px; height: 1px; background: var(--accent); transform: scaleX(0); transform-origin: left; transition: transform 220ms var(--ease); }
@@ -238,19 +227,14 @@
     :root .desktop-nav > a[aria-current="location"]:not(.nav-contact) { color: var(--accent); background: var(--glass-selected); box-shadow: inset 0 1px 0 var(--glass-highlight); }
     :root .nav-contact { border: 0; border-radius: 24px; background: var(--glass-control); box-shadow: inset 0 1px 0 var(--glass-highlight); }
     :root .nav-contact:hover { background: var(--accent-wash); }
-    :root .theme-control > summary { border: 0; background: var(--glass-control); box-shadow: inset 0 1px 0 var(--glass-highlight); }
-    :root .theme-control > summary:hover, :root .theme-control[open] > summary { background: var(--glass-selected); }
-    :root .theme-menu { border: 0; border-radius: 24px; background: var(--glass-menu); box-shadow: var(--glass-shadow); -webkit-backdrop-filter: blur(28px) saturate(160%); backdrop-filter: blur(28px) saturate(160%); }
-    :root .theme-menu { width: 184px; top: calc(100% + 16px); padding: 8px; }
-    :root .theme-option { border-radius: 16px; }
+    :root .theme-control { background: var(--glass-control); box-shadow: inset 0 1px 0 var(--glass-highlight); }
+    :root .theme-control:hover { background: var(--glass-selected); }
     :root .button { min-height: 48px; padding: 14px 22px; border-radius: 26px; box-shadow: 0 6px 16px -10px rgba(53, 31, 40, .4), inset 0 1px 0 rgba(255, 255, 255, .28); }
     :root .button:active { transform: scale(.98); }
     :root .hero-actions .text-link { padding: 12px 20px; min-height: 48px; border-radius: 26px; background: var(--glass-control); box-shadow: inset 0 1px 0 var(--glass-highlight), inset 0 0 0 1px var(--glass-rim); }
     :root .hero-actions .text-link:hover { text-decoration: none; background: var(--glass-selected); }
     :root .hero-actions > :is(.button, .text-link) { justify-content: space-between; gap: 12px; min-height: 52px; padding: 14px 16px; font-size: 14px; font-weight: 600; line-height: 20px; white-space: nowrap; }
     :root .contact { border-radius: 28px; }
-    @keyframes glass-menu-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
-    :root .theme-control[open] .theme-menu { animation: glass-menu-in 240ms var(--ease); }
     @media (max-width: 900px) {
       :root { scroll-padding-top: 100px; scroll-padding-bottom: 104px; }
       body { padding-bottom: calc(100px + env(safe-area-inset-bottom, 0px)); }
@@ -263,10 +247,10 @@
       .mobile-dock a[aria-current="location"] { color: var(--accent); background: var(--glass-selected); box-shadow: inset 0 1px 0 var(--glass-highlight); }
     }
     @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-      :root .site-header, :root .mobile-dock, :root .theme-menu { background: var(--surface); }
+      :root .site-header, :root .mobile-dock { background: var(--surface); }
     }
     @media (prefers-reduced-transparency: reduce), (prefers-contrast: more) {
-      :root .site-header, :root .mobile-dock, :root .theme-menu { background: var(--surface); -webkit-backdrop-filter: none; backdrop-filter: none; }
+      :root .site-header, :root .mobile-dock { background: var(--surface); -webkit-backdrop-filter: none; backdrop-filter: none; }
       :root .site-header::before { display: none; }
     }
     @media (min-width: 1600px) { .hero { padding-block: 104px 96px; } }
@@ -363,7 +347,6 @@
       <symbol id="arrow-up-right" viewBox="0 0 24 24"><path d="M7 17 17 7M7 7h10v10"/></symbol>
       <symbol id="arrow-right" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
       <symbol id="plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
-      <symbol id="check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></symbol>
       <symbol id="theme-system" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></symbol>
       <symbol id="theme-light" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"/></symbol>
       <symbol id="theme-dark" viewBox="0 0 24 24"><path d="M20.9 13a9 9 0 0 1-9.9-9.9A9 9 0 1 0 20.9 13Z"/></symbol>
@@ -391,16 +374,9 @@
         <a href="#about">About</a><a href="#experience">Experience</a><a href="#work">Work</a><a href="#research">Research</a>
         <a class="nav-contact" href="#contact">Get in touch <svg class="icon" aria-hidden="true"><use href="#arrow-up-right"/></svg></a>
       </nav>
-      <details class="theme-control" hidden>
-        <summary aria-label="Choose theme" title="Choose theme">
-          <svg class="icon" aria-hidden="true"><use href="#theme-system"/></svg>
-        </summary>
-        <div class="theme-menu" role="group" aria-label="Theme">
-          <button class="theme-option" type="button" data-theme-choice="system" aria-pressed="false"><span class="theme-option-label"><svg class="icon" aria-hidden="true"><use href="#theme-system"/></svg>System</span><svg class="icon theme-check" aria-hidden="true"><use href="#check"/></svg></button>
-          <button class="theme-option" type="button" data-theme-choice="dark" aria-pressed="false"><span class="theme-option-label"><svg class="icon" aria-hidden="true"><use href="#theme-dark"/></svg>Dark</span><svg class="icon theme-check" aria-hidden="true"><use href="#check"/></svg></button>
-          <button class="theme-option" type="button" data-theme-choice="light" aria-pressed="false"><span class="theme-option-label"><svg class="icon" aria-hidden="true"><use href="#theme-light"/></svg>Light</span><svg class="icon theme-check" aria-hidden="true"><use href="#check"/></svg></button>
-        </div>
-      </details>
+      <button class="theme-control" type="button" aria-label="System theme. Switch to Dark theme" title="System theme. Switch to Dark theme" hidden>
+        <svg class="icon" aria-hidden="true"><use href="#theme-system"/></svg>
+      </button>
       </div>
     </header>
 
@@ -442,7 +418,7 @@
         <div class="section-heading"><h2 id="experience-title">Work experience</h2><p class="section-note">Industry, research &amp; teaching</p></div>
         <div>
           <article class="experience-entry">
-            <div class="experience-meta"><p><time datetime="2026">2026</time>–present</p></div>
+            <div class="experience-meta"><p><time datetime="2026">Jul 2026</time>–present</p></div>
             <div><h3>Founding ML Engineer</h3><p class="organization">Helixar.ai</p><ul><li>Build an enterprise control plane for AI agent governance and runtime security.</li><li>Work across agent identity, scope enforcement, runtime monitoring and delegation provenance using Python, TypeScript, LangChain and MCP.</li></ul></div>
           </article>
           <article class="experience-entry">
@@ -544,8 +520,8 @@
   </nav>
   <script>
     const themeControl = document.querySelector('.theme-control');
-    const themeTrigger = themeControl.querySelector('summary');
-    const themeOptions = [...themeControl.querySelectorAll('.theme-option')];
+    const themeChoices = ['system', 'dark', 'light'];
+    const themeLabels = { system: 'System', light: 'Light', dark: 'Dark' };
     const systemTheme = matchMedia('(prefers-color-scheme: dark)');
     let selectedTheme = null;
     try {
@@ -555,44 +531,24 @@
     function applyTheme(theme) {
       document.documentElement.dataset.theme = theme;
       const choice = selectedTheme || 'system';
-      themeOptions.forEach(option => option.setAttribute('aria-pressed', String(option.dataset.themeChoice === choice)));
-      const label = { system: 'System', light: 'Light', dark: 'Dark' }[choice];
-      themeTrigger.title = 'Theme: ' + label;
-      themeTrigger.setAttribute('aria-label', 'Choose theme, current: ' + label);
-      themeTrigger.querySelector('use').setAttribute('href', '#theme-' + choice);
+      const next = themeChoices[(themeChoices.indexOf(choice) + 1) % themeChoices.length];
+      const label = themeLabels[choice] + ' theme. Switch to ' + themeLabels[next] + ' theme';
+      themeControl.dataset.themeChoice = choice;
+      themeControl.title = label;
+      themeControl.setAttribute('aria-label', label);
+      themeControl.querySelector('use').setAttribute('href', '#theme-' + choice);
       document.querySelector('meta[name="theme-color"]').content = { light: '#faf9f6', dark: '#1b1719' }[theme];
       document.dispatchEvent(new Event('portfolio-themechange'));
     }
-    themeOptions.forEach(option => option.addEventListener('click', () => {
-      selectedTheme = option.dataset.themeChoice === 'system' ? null : option.dataset.themeChoice;
+    themeControl.addEventListener('click', () => {
+      const choice = selectedTheme || 'system';
+      const next = themeChoices[(themeChoices.indexOf(choice) + 1) % themeChoices.length];
+      selectedTheme = next === 'system' ? null : next;
       try {
         if (selectedTheme) localStorage.setItem('sakuna-preview-theme', selectedTheme);
         else localStorage.removeItem('sakuna-preview-theme');
       } catch (_) {}
       applyTheme(selectedTheme || (systemTheme.matches ? 'dark' : 'light'));
-      themeControl.open = false;
-      themeTrigger.focus({ preventScroll: true });
-    }));
-    document.addEventListener('click', event => {
-      if (themeControl.open && !themeControl.contains(event.target)) themeControl.open = false;
-    });
-    document.addEventListener('keydown', event => {
-      if (event.key === 'Escape' && themeControl.open) {
-        event.preventDefault();
-        themeControl.open = false;
-        themeTrigger.focus({ preventScroll: true });
-      }
-    });
-    themeControl.addEventListener('keydown', event => {
-      if (!['ArrowDown', 'ArrowUp', 'Home', 'End'].includes(event.key)) return;
-      event.preventDefault();
-      themeControl.open = true;
-      const index = themeOptions.indexOf(document.activeElement);
-      const next = event.key === 'Home' ? 0 : event.key === 'End' ? themeOptions.length - 1 : event.key === 'ArrowDown' ? (index + 1) % themeOptions.length : index < 0 ? themeOptions.length - 1 : (index - 1 + themeOptions.length) % themeOptions.length;
-      themeOptions[next].focus();
-    });
-    themeControl.addEventListener('focusout', () => {
-      setTimeout(() => { if (!themeControl.contains(document.activeElement)) themeControl.open = false; }, 0);
     });
     systemTheme.addEventListener('change', event => {
       if (!selectedTheme) applyTheme(event.matches ? 'dark' : 'light');
