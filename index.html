@@ -195,7 +195,7 @@
     svg { display: block; }
     .icon { width: 18px; height: 18px; flex: 0 0 auto; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
     .container { width: min(1280px, calc(100% - 96px)); margin-inline: auto; }
-    .skip-link { position: fixed; z-index: 20; top: 12px; left: 16px; padding: 12px 20px; background: var(--ink); color: var(--page); transform: translateY(-200%); }
+    .skip-link { position: fixed; z-index: 40; top: 12px; left: 16px; padding: 12px 20px; background: var(--ink); color: var(--page); transform: translateY(-200%); }
     .skip-link:focus { transform: none; }
     .skip-link:hover { color: var(--page); }
     .site-header { position: sticky; top: 0; z-index: 10; display: flex; align-items: center; justify-content: space-between; min-height: 96px; border: 0; gap: 24px; background: var(--page); }
@@ -250,6 +250,9 @@
     .project .description { max-width: 62ch; color: var(--body); font-size: 15px; line-height: 1.8; }
     .project .description strong { display: block; margin-bottom: 6px; color: var(--ink); font-size: 16px; font-weight: 500; }
     .project .stack { margin-top: 12px; font-size: 12px; color: var(--muted); line-height: 1.8; }
+    .project-preview { margin-top: 20px; }
+    .project-preview img { display: block; width: 100%; height: auto; border: 1px solid var(--line); border-radius: 12px; }
+    .project-preview figcaption { margin-top: 8px; color: var(--muted); font-size: 12px; line-height: 1.7; }
     .project .project-action { justify-self: end; white-space: nowrap; }
     .project .project-kind { justify-self: end; margin-top: 6px; color: var(--muted); font-size: 12px; line-height: 1.8; text-align: right; }
     .research-content { display: grid; grid-template-columns: minmax(0, .65fr) minmax(0, 1.65fr); gap: 64px; }
@@ -289,8 +292,19 @@
     .about-copy { max-width: 69ch; }
     .about-copy > p { color: var(--body); font-size: 16px; line-height: 1.9; }
     .about-copy > p + p { margin-top: 20px; }
+    .content-details > summary { display: flex; align-items: center; gap: 12px; width: fit-content; min-height: 44px; color: var(--accent); font-size: 14px; font-weight: 500; cursor: pointer; list-style: none; }
+    .content-details > summary::-webkit-details-marker { display: none; }
+    .content-details > summary:hover { color: var(--accent-hover); }
+    .content-details > summary .label-open { display: none; }
+    .content-details[open] > summary .label-open { display: inline; }
+    .content-details[open] > summary .label-closed { display: none; }
+    .content-details[open] > summary .icon { transform: rotate(45deg); }
+    .about-details { margin-top: 16px; }
+    .about-details .education { margin-top: 16px; }
+    .experience-details { margin-top: 4px; }
+    .experience-entry .experience-details ul { margin-top: 8px; }
     .education h3, .skills h3 { font-size: 15px; font-weight: 600; }
-    .experience-entry { display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.95fr); gap: 32px; padding: 32px 0; }
+    .experience-entry { display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.95fr); gap: 32px; padding: 24px 0; }
     .experience-entry + .experience-entry { border-top: 1px solid var(--line); }
     .experience-entry:first-child { padding-top: 0; }
     .experience-entry:last-child { padding-bottom: 0; }
@@ -432,7 +446,7 @@
       .article-body h3 { font-size: 20px; }
       .articles-more { margin-top: 8px; }
       .about-copy > p { font-size: 15px; }
-      .experience-entry { grid-template-columns: 1fr; gap: 16px; padding: 28px 0; }
+      .experience-entry { grid-template-columns: 1fr; gap: 12px; padding: 24px 0; }
       .experience-meta { display: flex; flex-wrap: wrap; gap: 8px 20px; font-size: 12px; }
       .experience-meta .place { margin: 0; }
       .experience-entry h3 { font-size: 19px; }
@@ -512,14 +526,14 @@
       </div>
     </header>
 
-    <main id="main">
+    <main id="main" tabindex="-1">
       <section class="hero" aria-labelledby="hero-title">
         <div>
           <h1 id="hero-title">Sakuna <span class="hero-surname">Jayasundara<span class="hero-degree">, PhD</span></span></h1>
           <p class="hero-tagline">Engineering systems.<span>Researching trust.</span></p>
           <p class="intro">I’m a software engineer and postdoctoral researcher at the University of Auckland. I build backend and AI systems, and research how to make autonomous agents safer.</p>
           <div class="hero-actions">
-            <a class="button" href="#experience"><span>Explore my work</span><svg class="icon" aria-hidden="true"><use href="#arrow-right"/></svg></a>
+            <a class="button" href="#work"><span>Explore my work</span><svg class="icon" aria-hidden="true"><use href="#arrow-right"/></svg></a>
             <a class="text-link" href="public/cv.pdf" target="_blank" rel="noopener noreferrer"><span>View CV</span><svg class="icon" aria-hidden="true"><use href="#arrow-up-right"/></svg></a>
           </div>
           <div class="hero-meta">
@@ -540,10 +554,12 @@
       <section class="section" id="about" aria-labelledby="about-title">
         <div class="section-heading"><h2 id="about-title">A little about me</h2></div>
         <div class="about-copy">
-          <p>I work at the intersection of software engineering and security research. My experience spans backend APIs, machine learning pipelines, test automation and production systems, with a particular interest in making complex systems dependable.</p>
-          <p>My PhD at the University of Auckland explored human-centric access control: turning natural-language requirements into structured, validated policies. My postdoctoral work now investigates agent governance, secure delegation, provenance and runtime security.</p>
+          <p>I work across backend APIs, machine learning and production systems. My research focuses on human-centric access control and the governance, secure delegation and runtime security of autonomous agents.</p>
+          <details class="content-details about-details">
+          <summary><span class="label-closed">Education &amp; tools</span><span class="label-open">Hide education &amp; tools</span><svg class="icon" aria-hidden="true"><use href="#plus"/></svg></summary>
           <div class="education"><h3>Education</h3><p><strong>PhD in Computer Science</strong><br>University of Auckland · 2022–2026</p><p><strong>BSc (Hons.) in Electronics &amp; Telecommunication Engineering</strong><br>University of Moratuwa · First Class · 2016–2021</p></div>
           <div class="skills"><h3>Tools I work with</h3><p>Python, Java, TypeScript, C/C++, PyTorch, LangGraph, Spring Boot, FastAPI, React, SQL, Kubernetes and AWS.</p></div>
+          </details>
         </div>
       </section>
 
@@ -552,27 +568,27 @@
         <div>
           <article class="experience-entry">
             <div class="experience-meta"><p><time datetime="2026-07">Jul 2026</time>–present</p><p class="place">Auckland, New Zealand</p></div>
-            <div><h3>Founding ML Engineer</h3><p class="organization">Helixar.ai</p><ul><li>Build an enterprise control plane for AI agent governance and runtime security.</li><li>Work across agent identity, scope enforcement, runtime monitoring and delegation provenance using Python, TypeScript, LangChain and MCP.</li></ul></div>
+            <div><h3>Founding ML Engineer</h3><p class="organization">Helixar.ai</p><details class="content-details experience-details"><summary><span class="label-closed">Role details</span><span class="label-open">Hide role details</span><svg class="icon" aria-hidden="true"><use href="#plus"/></svg></summary><ul><li>Build an enterprise control plane for AI agent governance and runtime security.</li><li>Work across agent identity, scope enforcement, runtime monitoring and delegation provenance using Python, TypeScript, LangChain and MCP.</li></ul></details></div>
           </article>
           <article class="experience-entry">
             <div class="experience-meta"><p><time datetime="2026-10">Oct 2026</time>–present</p><p class="place">Auckland, New Zealand</p></div>
-            <div><h3>Postdoctoral Research Fellow</h3><p class="organization">University of Auckland</p><ul><li>Investigate AI agent governance and security, including runtime policy enforcement, least-privilege access and secure delegation.</li><li>Research provenance-aware threat detection and defenses against prompt injection, unauthorized tool use and inter-agent trust failures.</li></ul></div>
+            <div><h3>Postdoctoral Research Fellow</h3><p class="organization">University of Auckland</p><details class="content-details experience-details"><summary><span class="label-closed">Role details</span><span class="label-open">Hide role details</span><svg class="icon" aria-hidden="true"><use href="#plus"/></svg></summary><ul><li>Investigate AI agent governance and security, including runtime policy enforcement, least-privilege access and secure delegation.</li><li>Research provenance-aware threat detection and defenses against prompt injection, unauthorized tool use and inter-agent trust failures.</li></ul></details></div>
           </article>
           <article class="experience-entry">
             <div class="experience-meta"><p><time datetime="2022-11">Nov 2022</time>–present</p><p class="place">Auckland, New Zealand</p></div>
-            <div><h3>Professional Teaching Fellow</h3><p class="organization">University of Auckland</p><ul><li>Deliver lectures and tutorials in data structures and algorithms, software engineering, cryptographic management and Java programming.</li><li>Design course materials and autograded assignments for cohorts of approximately 300 students, and assess programming projects.</li></ul></div>
+            <div><h3>Professional Teaching Fellow</h3><p class="organization">University of Auckland</p><details class="content-details experience-details"><summary><span class="label-closed">Role details</span><span class="label-open">Hide role details</span><svg class="icon" aria-hidden="true"><use href="#plus"/></svg></summary><ul><li>Deliver lectures and tutorials in data structures and algorithms, software engineering, cryptographic management and Java programming.</li><li>Design course materials and autograded assignments for cohorts of approximately 300 students, and assess programming projects.</li></ul></details></div>
           </article>
           <article class="experience-entry">
             <div class="experience-meta"><p><time datetime="2022-06">Jun 2022</time>–<time datetime="2022-10">Oct 2022</time></p><p class="place">Remote</p></div>
-            <div><h3>Software Engineer (SDET)</h3><p class="organization">H2O.ai</p><ul><li>Built and maintained applications supporting internal and external machine learning workflows, with a focus on reliability and developer productivity.</li><li>Developed end-to-end automation pipelines using Python, Jenkins and Groovy, increasing release velocity by approximately 30%.</li></ul></div>
+            <div><h3>Software Engineer (SDET)</h3><p class="organization">H2O.ai</p><details class="content-details experience-details"><summary><span class="label-closed">Role details</span><span class="label-open">Hide role details</span><svg class="icon" aria-hidden="true"><use href="#plus"/></svg></summary><ul><li>Built and maintained applications supporting internal and external machine learning workflows, with a focus on reliability and developer productivity.</li><li>Developed end-to-end automation pipelines using Python, Jenkins and Groovy, increasing release velocity by approximately 30%.</li></ul></details></div>
           </article>
           <article class="experience-entry">
             <div class="experience-meta"><p><time datetime="2021-07">Jul 2021</time>–<time datetime="2022-06">Jun 2022</time></p><p class="place">Colombo, Sri Lanka</p></div>
-            <div><h3>Software Engineer</h3><p class="organization">Axiata Digital Labs</p><ul><li>Designed and maintained REST and SOAP APIs in Java and Spring Boot for customer-facing telecom services at Celcom Malaysia.</li><li>Built an anomaly detection system using OpenTelemetry and machine learning that helped identify more than 300 critical production anomalies.</li></ul></div>
+            <div><h3>Software Engineer</h3><p class="organization">Axiata Digital Labs</p><details class="content-details experience-details"><summary><span class="label-closed">Role details</span><span class="label-open">Hide role details</span><svg class="icon" aria-hidden="true"><use href="#plus"/></svg></summary><ul><li>Designed and maintained REST and SOAP APIs in Java and Spring Boot for customer-facing telecom services at Celcom Malaysia.</li><li>Built an anomaly detection system using OpenTelemetry and machine learning that helped identify more than 300 critical production anomalies.</li></ul></details></div>
           </article>
           <article class="experience-entry">
             <div class="experience-meta"><p><time datetime="2019-05">May 2019</time>–<time datetime="2019-12">Dec 2019</time></p><p class="place">Colombo, Sri Lanka</p></div>
-            <div><h3>Intern Electronics Engineer</h3><p class="organization">Paraqum Technologies</p><ul><li>Built a GPRS Tunnelling Protocol packet analysis tool and test environment for inspecting mobile core network traffic.</li><li>Implemented traffic load balancing and optimized C++ modules for responsiveness and reliability.</li></ul></div>
+            <div><h3>Intern Electronics Engineer</h3><p class="organization">Paraqum Technologies</p><details class="content-details experience-details"><summary><span class="label-closed">Role details</span><span class="label-open">Hide role details</span><svg class="icon" aria-hidden="true"><use href="#plus"/></svg></summary><ul><li>Built a GPRS Tunnelling Protocol packet analysis tool and test environment for inspecting mobile core network traffic.</li><li>Implemented traffic load balancing and optimized C++ modules for responsiveness and reliability.</li></ul></details></div>
           </article>
         </div>
       </section>
@@ -582,12 +598,12 @@
         <div class="work-list">
           <article class="project">
             <div><h3><a href="https://sakunah.com/ragatouille-book" target="_blank" rel="noopener noreferrer">Ragatouille</a></h3><p class="meta">Open-source guide · 2024</p></div>
-            <div><p class="description"><strong>A practical guide to building RAG systems</strong>An open-source guide to retrieval-augmented generation with LangGraph and Neo4j, featured on LangChain’s official LinkedIn page.</p><p class="stack">Python · LangGraph · Neo4j</p></div>
+            <div><p class="description"><strong>A practical guide to RAG and agentic AI systems</strong>Working examples covering RAG pipelines, LangGraph workflows and AI agent security, including retrieval with Neo4j. Featured on LangChain’s official LinkedIn page.</p><p class="stack">Python · LangGraph · Neo4j</p><figure class="project-preview"><img src="public/projects/ragatouille.jpg" width="1200" height="833" loading="lazy" decoding="async" alt="Ragatouille guide showing Sakuna Jayasundara as author, with sections on retrieval-augmented generation and agentic AI security."><figcaption>Published guide with implementations from RAG foundations to agent security.</figcaption></figure></div>
             <a class="text-link project-action" href="https://sakunah.com/ragatouille-book" target="_blank" rel="noopener noreferrer">Read guide <svg class="icon" aria-hidden="true"><use href="#arrow-up-right"/></svg></a>
           </article>
           <article class="project">
             <div><h3><a href="https://marigoldplanning.online" target="_blank" rel="noopener noreferrer">Marigold</a></h3><p class="meta">Live application · 2026–present</p></div>
-            <div><p class="description"><strong>From an idea to a deployed product</strong>Designed and built a full-stack wedding planning platform, taking the application from concept through development and deployment.</p><p class="stack">Next.js · Neon · Clerk · Cloudflare</p></div>
+            <div><p class="description"><strong>From an idea to a deployed product</strong>Designed and built a full-stack wedding planning platform with budgets, guest lists, per-event RSVPs, vendors, seating and event timelines.</p><p class="stack">Next.js · Neon · Clerk · Cloudflare</p><figure class="project-preview"><img src="public/projects/marigold.jpg" width="1200" height="833" loading="lazy" decoding="async" alt="Live Marigold product site showing the wedding planning interface, with budget and RSVP feature previews."><figcaption>Live product site showing its budget and RSVP planning features.</figcaption></figure></div>
             <a class="text-link project-action" href="https://marigoldplanning.online" target="_blank" rel="noopener noreferrer">Visit project <svg class="icon" aria-hidden="true"><use href="#arrow-up-right"/></svg></a>
           </article>
         </div>
