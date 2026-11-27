@@ -172,6 +172,21 @@
     .more-papers[open] .label-open { display: inline; }
     .more-papers[open] .label-closed { display: none; }
     .more-papers[open] > summary .icon { transform: rotate(45deg); }
+    .article-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
+    .article-tile { min-width: 0; border: 1px solid var(--line); border-radius: 16px; background: var(--surface); transition: border-color 180ms var(--ease); }
+    .article-tile:hover, .article-tile:focus-within { border-color: var(--accent); }
+    .article-link { display: grid; grid-template-rows: auto 1fr; height: 100%; border-radius: inherit; }
+    .article-cover { overflow: hidden; aspect-ratio: 16 / 9; border-radius: 15px 15px 0 0; }
+    .article-cover img { display: block; width: 100%; height: 100%; object-fit: cover; }
+    .article-cover.contain { background: #fff; }
+    .article-cover.contain img { object-fit: contain; }
+    .article-body { display: flex; flex-direction: column; align-items: start; padding: 24px; }
+    .article-date { margin-bottom: 12px; color: var(--muted); font-size: 12px; line-height: 1.6; }
+    .article-body h3 { color: var(--ink); font-size: 20px; font-weight: 500; line-height: 1.45; letter-spacing: -.015em; }
+    .article-link:hover h3 { color: var(--accent); }
+    .article-summary { margin-top: 12px; color: var(--body); font-size: 15px; line-height: 1.8; }
+    .article-read { margin-top: auto; padding-top: 24px; color: var(--accent); font-size: 14px; font-weight: 500; line-height: 1.6; }
+    .articles-more { min-height: 44px; color: var(--accent); white-space: nowrap; }
     .about-copy { max-width: 69ch; }
     .about-copy > p { color: var(--body); font-size: 16px; line-height: 1.9; }
     .about-copy > p + p { margin-top: 20px; }
@@ -244,7 +259,7 @@
       :root .site-header { top: max(12px, env(safe-area-inset-top, 0px)); min-height: 64px; margin-top: 12px; padding: 8px 10px; gap: 12px; border-radius: 32px; }
       :root .header-actions { gap: 8px; }
       .mobile-dock { position: fixed; z-index: 20; left: 50%; bottom: calc(12px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); display: flex; align-items: center; width: min(440px, calc(100% - 24px - env(safe-area-inset-left, 0px) - env(safe-area-inset-right, 0px))); padding: 6px; border-radius: 34px; background: var(--glass); box-shadow: var(--glass-shadow); -webkit-backdrop-filter: blur(24px) saturate(160%); backdrop-filter: blur(24px) saturate(160%); font-family: -apple-system, BlinkMacSystemFont, 'Manrope', sans-serif; }
-      .mobile-dock a { display: flex; flex: 1 1 0; min-width: 0; min-height: 56px; align-items: center; justify-content: center; flex-direction: column; gap: 4px; padding: 8px 4px; border-radius: 28px; color: var(--body); font-size: 11px; font-weight: 500; line-height: 14px; }
+      .mobile-dock a { display: flex; flex: 1 1 0; min-width: 0; min-height: 56px; align-items: center; justify-content: center; flex-direction: column; gap: 4px; padding: 8px 2px; border-radius: 28px; color: var(--body); font-size: 11px; font-weight: 500; line-height: 14px; }
       .mobile-dock .icon { width: 20px; height: 20px; stroke-width: 1.6; }
       .mobile-dock a:hover { color: var(--accent); }
       .mobile-dock a[aria-current="location"] { color: var(--accent); background: var(--glass-selected); box-shadow: inset 0 1px 0 var(--glass-highlight); }
@@ -257,6 +272,7 @@
       :root .site-header::before { display: none; }
     }
     @media (min-width: 1600px) { .hero { padding-block: 104px 96px; } }
+    @media (max-width: 1100px) { .brand-surname { display: none; } }
     @media (max-width: 1050px) {
       .container { width: calc(100% - 64px); }
       .hero { gap: 32px; grid-template-columns: minmax(0, 1.3fr) minmax(0, .8fr); padding-block: 64px; }
@@ -265,6 +281,9 @@
       .desktop-nav { gap: 12px; }
       .header-actions { gap: 12px; }
       .research-content { gap: 40px; grid-template-columns: minmax(0, .7fr) minmax(0, 1.6fr); }
+      .article-grid { gap: 16px; }
+      .article-body { padding: 20px; }
+      .article-body h3 { font-size: 18px; }
       .project { grid-template-columns: minmax(0, .85fr) minmax(0, 1.5fr); gap: 16px 28px; }
       .project .project-action, .project .project-kind { grid-column: 2; justify-self: start; margin: 0; }
       .project .project-action { min-height: 36px; }
@@ -304,6 +323,10 @@
       .research-intro p { max-width: 55ch; }
       .research-intro .text-link { margin-top: 8px; }
       .paper h3 { font-size: 16px; }
+      .article-grid { grid-template-columns: 1fr; gap: 24px; }
+      .article-body { padding: 24px; }
+      .article-body h3 { font-size: 20px; }
+      .articles-more { margin-top: 8px; }
       .about-copy > p { font-size: 15px; }
       .experience-entry { grid-template-columns: 1fr; gap: 16px; padding: 28px 0; }
       .experience-meta { display: flex; flex-wrap: wrap; gap: 8px 20px; font-size: 12px; }
@@ -321,6 +344,7 @@
       .brand .brand-name { max-width: 152px; white-space: normal; line-height: 1.4; }
       h1 { font-size: 35px; }
       .hero-actions { grid-template-columns: 1fr; }
+      .mobile-dock a[href="#experience"] { flex-grow: 1.2; }
     }
     @media (prefers-reduced-motion: reduce) {
       :root { scroll-behavior: auto; }
@@ -339,7 +363,7 @@
       .section, .contact { padding-block: 28px; }
       .contact { background: none; color: var(--ink); padding-inline: 0; }
       .contact p { color: var(--body); }
-      .project, .paper, .experience-entry { break-inside: avoid; }
+      .project, .paper, .experience-entry, .article-tile { break-inside: avoid; }
     }
   </style>
 </head>
@@ -359,6 +383,7 @@
       <symbol id="briefcase" viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="14" rx="3"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M3 12a22 22 0 0 0 18 0M12 11v4"/></symbol>
       <symbol id="work-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="2"/><rect x="14" y="3" width="7" height="7" rx="2"/><rect x="3" y="14" width="7" height="7" rx="2"/><rect x="14" y="14" width="7" height="7" rx="2"/></symbol>
       <symbol id="book" viewBox="0 0 24 24"><path d="M12 5v16M12 5C9 3 5 3 2 4v15c3-1 7-1 10 2 3-3 7-3 10-2V4c-3-1-7-1-10 1Z"/></symbol>
+      <symbol id="writing" viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h4"/></symbol>
       <symbol id="social-github" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.58 2 12.26c0 4.5 2.87 8.32 6.84 9.67.5.09.68-.22.68-.49 0-.24-.01-.87-.01-1.71-2.78.62-3.37-1.37-3.37-1.37-.45-1.18-1.11-1.49-1.11-1.49-.91-.64.07-.62.07-.62 1 .07 1.53 1.06 1.53 1.06.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.37-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.71 0 0 .84-.27 2.75 1.05a9.36 9.36 0 0 1 5 0c1.91-1.32 2.75-1.05 2.75-1.05.55 1.41.2 2.45.1 2.71.64.72 1.03 1.63 1.03 2.75 0 3.94-2.34 4.81-4.57 5.06.36.32.68.94.68 1.9 0 1.37-.01 2.47-.01 2.81 0 .27.18.59.69.49A10.02 10.02 0 0 0 22 12.26C22 6.58 17.52 2 12 2Z"/></symbol>
       <symbol id="social-linkedin" viewBox="0 0 24 24"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9h4v12H3ZM9 9h3.8v1.7h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1V21h-4v-5.4c0-1.29-.02-2.95-1.8-2.95-1.8 0-2.08 1.4-2.08 2.85V21H9Z"/></symbol>
       <symbol id="social-scholar" viewBox="0 0 24 24"><path d="M12 4 1.5 9 12 14l10.5-5ZM6 11.2V16c0 1.4 2.7 2.8 6 2.8s6-1.4 6-2.8v-4.8M22.5 9v5.6"/></symbol>
@@ -376,7 +401,7 @@
       </a>
       <div class="header-actions">
       <nav class="desktop-nav" aria-label="Main navigation">
-        <a href="#about">About</a><a href="#experience">Experience</a><a href="#work">Work</a><a href="#research">Research</a>
+        <a href="#about">About</a><a href="#experience">Experience</a><a href="#work">Work</a><a href="#research">Research</a><a href="#articles">Articles</a>
         <a class="nav-contact" href="#contact">Get in touch <svg class="icon" aria-hidden="true"><use href="#arrow-up-right"/></svg></a>
       </nav>
       <button class="theme-control" type="button" aria-label="System theme. Switch to Dark theme" title="System theme. Switch to Dark theme" hidden>
@@ -501,6 +526,30 @@
         </div>
       </section>
 
+      <section class="section" id="articles" aria-labelledby="articles-title">
+        <div class="section-heading"><h2 id="articles-title">Articles</h2><a class="text-link articles-more" href="https://medium.com/@sakunaj1996" target="_blank" rel="noopener noreferrer">See more on Medium</a></div>
+        <div class="article-grid">
+          <article class="article-tile">
+            <a class="article-link" href="https://medium.com/@sakunaj1996/the-demos-lie-a-few-lessons-from-actually-shipping-a-product-with-claude-code-47b2e7f3bd75" target="_blank" rel="noopener noreferrer" aria-labelledby="article-claude-title">
+              <div class="article-cover"><img src="public/articles/claude-code.jpg" alt="" width="900" height="491" loading="lazy" decoding="async"></div>
+              <div class="article-body"><p class="article-date"><time datetime="2026-07-10">10 July 2026</time></p><h3 id="article-claude-title">The Demos Lie: A Few Lessons From Actually Shipping a Product With Claude Code</h3><p class="article-summary">Lessons from taking a product from a blank plan to production with Claude Code: planning, guardrails, code review, and deployment.</p><span class="article-read">Read on Medium</span></div>
+            </a>
+          </article>
+          <article class="article-tile">
+            <a class="article-link" href="https://medium.com/@sakunaj1996/bloomingwave-dcba5a7ae85a" target="_blank" rel="noopener noreferrer" aria-labelledby="article-bloom-title">
+              <div class="article-cover contain"><img src="public/articles/bloomingwave.jpg" alt="" width="900" height="361" loading="lazy" decoding="async"></div>
+              <div class="article-body"><p class="article-date"><time datetime="2022-10-30">30 October 2022</time></p><h3 id="article-bloom-title">BLOOMingWave</h3><p class="article-summary">A playground for BLOOM large language models, powered by H2O Wave, and an introduction to working with open language models.</p><span class="article-read">Read on Medium</span></div>
+            </a>
+          </article>
+          <article class="article-tile">
+            <a class="article-link" href="https://medium.com/@sakunaj1996/technical-interview-preparation-episode-01-da066a37280c" target="_blank" rel="noopener noreferrer" aria-labelledby="article-interview-title">
+              <div class="article-cover"><img src="public/articles/interview-preparation.jpg" alt="" width="900" height="506" loading="lazy" decoding="async"></div>
+              <div class="article-body"><p class="article-date"><time datetime="2022-03-26">26 March 2022</time></p><h3 id="article-interview-title">Technical Interview Preparation — Episode 01</h3><p class="article-summary">Preparing your CV, answering technical questions, and approaching timed programming problems, starting with Two Sum.</p><span class="article-read">Read on Medium</span></div>
+            </a>
+          </article>
+        </div>
+      </section>
+
       <section class="contact" id="contact" aria-labelledby="contact-title">
         <div><h2 id="contact-title">Good systems start with a conversation.</h2><p>Open to software engineering opportunities, AI security projects and research collaborations.</p></div>
         <a class="button" href="mailto:sakunaj1996@gmail.com">Let’s talk <svg class="icon" aria-hidden="true"><use href="#arrow-up-right"/></svg></a>
@@ -522,6 +571,7 @@
     <a href="#experience"><svg class="icon" aria-hidden="true"><use href="#briefcase"/></svg><span>Experience</span></a>
     <a href="#work"><svg class="icon" aria-hidden="true"><use href="#work-grid"/></svg><span>Work</span></a>
     <a href="#research"><svg class="icon" aria-hidden="true"><use href="#book"/></svg><span>Research</span></a>
+    <a href="#articles"><svg class="icon" aria-hidden="true"><use href="#writing"/></svg><span>Articles</span></a>
   </nav>
   <script>
     const themeControl = document.querySelector('.theme-control');
